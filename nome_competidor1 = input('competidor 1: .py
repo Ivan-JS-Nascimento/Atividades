@@ -5,7 +5,7 @@ pasteis_competidor2 = int(input())
 nome_competidor3 = input()
 pasteis_competidor3 = int(input())
 
-if nome_competidor1.lower() == 'lineu' or nome_competidor2.lower() == 'lineu' or nome_competidor3.lower() == 'lineu':
+if (nome_competidor1.lower() == 'lineu') or (nome_competidor2.lower() == 'lineu') or (nome_competidor3.lower() == 'lineu'):
     print('Lineu comeu um pastel com gosto estranho e usou sua autoridade na vigilancia sanitaria para acabar com a competição, Beiçola tá desolado!')
 else:
     campeao= ''
@@ -29,11 +29,11 @@ else:
     print(f'A(O) campeã(o) é {campeao}, com {p_campeao} pastéis consumidos!')
 
     if nome_competidor1.lower() == 'floriano' or nome_competidor2.lower() == 'floriano' or nome_competidor3.lower() == 'floriano':
-        if campeao.lower!='floriano':
+        if campeao.lower()!='floriano':
             print(f'Anos comendo pastel e perdeu justo para {campeao}, lastimável, Sr. Flor!')
     
-    if campeao.lower == 'agostinho':
-        if p_campeao>100:
+    if campeao.lower() == 'agostinho':
+        if p_campeao > 100:
             print('Acho que o Agostinho deve ter escondido alguns pastéis na calça, pilantra!')
-        if 50 < p_campeao < 100:
+        if p_campeao > 50 and p_campeao < 100:
             print('Agostinho madrugou no taxi e veio cheio de fome para a competição!')
