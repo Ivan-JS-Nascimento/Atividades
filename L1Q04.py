@@ -50,8 +50,6 @@ else:
     # S = L = R = H
     if (p_S == p_L) and (p_L == p_R) and (p_R == p_H):
         sgg = 1
-#        print(f'O cientista da semana é: Sheldon')
-#        print('Não é atoa que ele ganhou o prêmio Nobel')
     else:
         # S = L = R 
         if (p_S == p_L) and (p_L == p_R):
@@ -74,16 +72,77 @@ else:
             else:
                 lgg = 1
         # L = R = H
+        if (p_L == p_R) and (p_R == p_H):
+            lgg = 1
+# casos de 2
+        # S = L
+        if (p_S == p_L):
+            if p_R!=p_H:
+                if (p_S > p_R) and (p_S > p_H):
+                    sgg = 1
+                elif p_R > p_S and p_R > p_H:
+                    rgg=1
+                else:
+                    hgg=1
+            else:
+                if p_S > p_R:
+                    sgg=1
+                else:
+                    rgg=1
+        # S = R
+        if (p_S == p_R):
+            if p_L!=p_H:
+                if (p_S > p_L) and (p_S > p_H):
+                    sgg = 1
+                elif p_L > p_S and p_L > p_H:
+                    lgg=1
+                else:
+                    hgg=1
+            else:
+                if p_S > p_L:
+                    sgg=1
+                else:
+                    lgg=1
+        # S = H
+        if (p_S == p_H):
+            if p_L!=p_R:
+                if (p_S > p_L) and (p_S > p_R):
+                    sgg = 1
+                elif p_L > p_S and p_L > p_R:
+                    lgg=1
+                else:
+                    rgg=1
+            else:
+                if p_S > p_L:
+                    sgg=1
+                else:
+                    lgg=1
 
+#-------------
+        # L = R
+        if (p_L == p_R) and (p_S!=p_H):
+            if (p_L > p_S) and (p_L > p_H):
+                lgg = 1
+            elif p_H > p_S and p_H > p_L:
+                hgg=1
+            else:
+                sgg=1
+        # L = H
+        if (p_L == p_H) and (p_S!=p_R):
+            if (p_L > p_S) and (p_L > p_R):
+                lgg = 1
+            elif p_S > p_L and p_S > p_R:
+                sgg=1
+            else:
+                rgg=1
 
-
-
-
-
-    if (p_S == p_L):
-        if (p_S > p_R) and (p_S > p_H):
-            sgg = 1
-        elif :
-
-    if (p_S == p_R):
-    if (p_S == p_H):
+        # R = H
+        if (p_R == p_H) and (p_S!=p_L):
+            if (p_R > p_S) and (p_R > p_L):
+                rgg = 1
+            elif p_S > p_L and p_S > p_R:
+                sgg=1
+            else:
+                lgg=1
+#Leonard → Raj → Howard.
+# agora falta a logica para printar
