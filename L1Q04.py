@@ -13,6 +13,77 @@ p_L = a_Leonard * 2 + e_Leonard * 3
 p_R = a_Raj * 2 + e_Raj * 3
 p_H = a_Howard * 2 + e_Howard * 3
 
+sgg = 0
+lgg = 0
+rgg = 0
+hgg = 0
+
 print(f'Pontuação final: \nSheldon: {p_S} \nLeonard: {p_L} \nRaj: {p_R} \nHoward: {p_H}\n')
-if (p_S > p_L) and (p_S > p_R) and (p_S > p_H):
-    print(f'O cientista da semana é: Sheldon')
+# S != L != R != H
+if (p_H != p_R) and (p_H != p_L) and (p_H != p_S) and (p_R != p_L) and (p_R != p_S) and (p_L != p_S):
+    # S > LRH
+    if (p_S > p_L) and (p_S > p_R) and (p_S > p_H):
+        sgg = 1
+#        print(f'O cientista da semana é: Sheldon')
+#        print('Não é atoa que ele ganhou o prêmio Nobel')
+
+    # L > SRH
+    if (p_L > p_S) and (p_L > p_R) and (p_L > p_H):
+        lgg = 1
+#        print(f'O cientista da semana é: Leonard')
+#        print('A vitória dele prova que aguentar o Sheldon já é um experimento científico por si só.')
+
+    # R > LSH
+    if (p_R > p_S) and (p_R > p_L) and (p_R > p_H):
+        rgg = 1
+#        print(f'O cientista da semana é: Raj')
+#        print('Ele comemora... mas ainda precisa da ajuda do cachorro para falar com mulheres.')
+
+    # H > LRS
+    if (p_H > p_S) and (p_H > p_L) and (p_H > p_R):
+        hgg = 1
+#        print(f'O cientista da semana é: Howard')
+#        print('Um pequeno passo para a ciência, um grande salto para alguém com mestrado.')
+
+#------------------------------------------------------------------------------
+else:
+    # S = L = R = H
+    if (p_S == p_L) and (p_L == p_R) and (p_R == p_H):
+        sgg = 1
+#        print(f'O cientista da semana é: Sheldon')
+#        print('Não é atoa que ele ganhou o prêmio Nobel')
+    else:
+        # S = L = R 
+        if (p_S == p_L) and (p_L == p_R):
+            if p_S > p_H:
+                sgg = 1
+            else:
+                hgg = 1
+
+        # S = L = H
+        if (p_S == p_L) and (p_L == p_H):
+            if p_S > p_R:
+                sgg = 1
+            else:
+                rgg = 1
+
+        # S = R = H
+        if (p_S == p_R) and (p_R == p_H):
+            if p_S > p_L:
+                sgg = 1
+            else:
+                lgg = 1
+        # L = R = H
+
+
+
+
+
+
+    if (p_S == p_L):
+        if (p_S > p_R) and (p_S > p_H):
+            sgg = 1
+        elif :
+
+    if (p_S == p_R):
+    if (p_S == p_H):
