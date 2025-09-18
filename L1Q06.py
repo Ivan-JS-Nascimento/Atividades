@@ -1,12 +1,12 @@
-nome=input().capitalize()
+nome=input().lower()
 valor=float(input())
-res=input().capitalize()
-teven=input().capitalize()
+res=input().lower()
+teven=input().lower()
 
 if valor > 100:
     # Regra Angela
     # R1
-    if res == 'Angela' and teven!='Halloween' and teven!='Aniverário':
+    if res == 'angela' and teven!='halloween' and teven!='aniverário':
         print('Compra Aprovada!')
         print('Apenas eu tenho discernimento para gastos desta magnitude.')
     # R2
@@ -15,23 +15,23 @@ if valor > 100:
         print('Gasto excessivo e irresponsável! Onde está a disciplina fiscal?!')
 else:
     #R3
-    if res =='Angela':
+    if res =='angela':
         print('Compra Aprovada!')
         print('Compra feita por mim, obviamente dentro dos padrões de excelência.')
     # ----
 
     # Regra Michael
-    elif res == 'Michael' and teven != 'Halloween' and teven != 'Aniverário':
+    elif res == 'michael' and teven != 'halloween' and teven != 'aniverário':
         # R1
-        if nome =='Mágica' or nome == 'Fantasia':
+        if nome =='mágica' or nome == 'fantasia':
             print('Compra Reprovada!')
             print('O Comitê não financia frivolidades e palhaçadas, Michael.')
         # R2
         elif valor > 60:
             print('Compra Aprovada com ressalvas!')
-            if( teven == 'Natal' ):
+            if( teven == 'natal' ):
                 print('O espírito natalino de Michael é... excessivo. A nota será conferida.')
-            if( teven == 'Aniversário' ):
+            if( teven == 'aniversário' ):
                 print('Michael nunca gasta tanto nos aniversários dos funcionários, deve ser o dele!')
         # R3
         else:
@@ -40,31 +40,31 @@ else:
     # ----
 
     # Halloween
-    elif teven == 'Halloween':
+    elif teven == 'halloween':
         # R1
-        if nome == 'Abóbora' and valor<=30:
+        if nome == 'abóbora' and valor<=30:
             print('Compra Aprovada!')
 
             # entra em R3 de Angela
-            if res == 'Angela':
+            if res == 'angela':
                 print('Compra feita por mim, obviamente dentro dos padrões de excelência.')
             # ----
 
             # entra em R3 de Michael
-            elif res == 'Michael':
+            elif res == 'michael':
                 print('Uma compra surpreendentemente sensata vinda do Michael. Suspeito.')
             # ----
 
             print('Uma abóbora de tamanho e custo razoáveis. Eficiente.')
         
         # R2
-        elif(nome=='Abóbora' and valor>30):
+        elif(nome=='abóbora' and valor>30):
             # R3 de angela
-            if res == 'Angela':
+            if res == 'angela':
                 print('Compra Aprovada!')
                 print('Compra feita por mim, obviamente dentro dos padrões de excelência.')
             # R3 de michael
-            elif res == 'Michael':
+            elif res == 'michael':
                 print('Compra Aprovada!')
                 print('Uma compra surpreendentemente sensata vinda do Michael. Suspeito.')
             # ---
@@ -75,7 +75,7 @@ else:
         # R3
         else:   
             if valor > 100:
-                if res == 'Angela':
+                if res == 'angela':
                     print('Compra Reprovada!')
                     print('Gasto excessivo e irresponsável! Onde está a disciplina fiscal?!')
                 else:
@@ -83,25 +83,25 @@ else:
                     print('Decoração de Halloween... Tenho certeza que Phyllis exagerou de novo.')
             else:
               print('Compra Reprovada!')
-              if res != 'Michael' and nome != 'Fantasia' and nome != 'Mágica':
+              if res != 'michael' and nome != 'fantasia' and nome != 'mágica':
                 print('Gasto excessivo e irresponsável! Onde está a disciplina fiscal?!')
               else:
                 print('O Comitê não financia frivolidades e palhaçadas, Michael.')
     # ----
 
     # Aniversário
-    elif res == 'Aniversário':
+    elif teven == 'aniversário':
         # R1
-        if nome == 'Bolo' and valor<=40:
+        if nome == 'bolo' and valor<=40:
             print('Compra Aprovada!')
-            if res == 'Angela':
+            if res == 'angela':
                 print('Compra feita por mim, obviamente dentro dos padrões de excelência.')
-            elif res == 'Michael':
+            elif res == 'michael':
                 print('Uma compra surpreendentemente sensata vinda do Michael. Suspeito.')
             print('Um bolo modesto para celebrar mais um ano de produtividade, parabéns!')
 
         # R2
-        elif nome == 'Sorvete de Menta com Chocolate':
+        elif nome == 'sorvete de menta com chocolate':
             print('Compra Reprovada!')
             print('Este sabor de sorvete é uma abominação e não entrará em meu evento.')
         
