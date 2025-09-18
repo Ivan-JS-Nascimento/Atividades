@@ -139,7 +139,6 @@ else:
                 lgg=1
 #Leonard → Raj → Howard.
 # agora falta a logica para printar
-print(str(sgg) + '. ' + str(lgg) + '. ' + str(rgg) + '. ' + str(hgg) + '. ')
 
 if sgg==1:
     print(f'O cientista da semana é: Sheldon')
