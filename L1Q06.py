@@ -31,8 +31,6 @@ if res == 'michael':
             print('O espírito natalino de Michael é... excessivo. A nota será conferida.')
         elif teven == 'aniversário':
             print('Michael nunca gastou tanto nos aniversários dos funcionários, deve ser o dele!')
-        else:
-            print('Angela vai verificar a nota depois.')
         exit()
     print('Compra Aprovada!')
     print('Uma compra surpreendentemente sensata vinda do Michael. Suspeito.')
