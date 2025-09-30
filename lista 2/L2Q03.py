@@ -13,7 +13,7 @@ else:
             print(f'Batalha número {i+1}!')        
         vida1=10
         vida2=10
-        while( vida1 != 0 or vida2 != 0):
+        while( vida1 != 0 and vida2 != 0):
             jogadax=input()
             jogaday=input()
             if (jogadax!=jogaday):
