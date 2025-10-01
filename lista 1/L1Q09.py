@@ -9,13 +9,13 @@ per_c = ''
 finali1 = ''
 finali2 = ''
 
-if 'Terry' in [p1, p2, p3, p4] or 'Holt' in [p1, p2, p3, p4]:
+if (p1=='Terry' or p2=='Terry' or p3=='Terry' or p4=='Terry') or (p1=='Holt' or p2=='Holt' or p3=='Holt' or p4=='Holt'):
     print('Jimmy Jab CANCELADO!')
 else:
     print('Nosso primeiro evento é...')
     print('A Bocatona!')
 
-    if 'Scully' in [p1, p2, p3, p4]:
+    if p1=='Scully' or p2=='Scully' or p3=='Scully' or p4=='Scully':
         per_b = input()
         print('Scully leva a melhor, não tem como competir com ele.')
         print(f'{per_b} não avançou para a próxima fase!')
@@ -51,7 +51,7 @@ else:
     print(f'{finali1} levou a melhor na Corrida Volumosa!')
     print(f'{per_c} não avançou para a próxima fase!')
 
-    if finali1 in ['Jake', 'Amy'] and finali2 in ['Jake', 'Amy']:
+    if (finali1=='Jake' or finali1=='Amy') and (finali2=='Jake' or finali2=='Amy'):
         print('Jake ficou com o 2º lugar!')
         print('Amy VENCEU O JIMMY JABS!')
     else:

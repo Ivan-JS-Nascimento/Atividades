@@ -16,7 +16,7 @@ if op_especial=='sim':
     pontuacao = pontuacao*1.5 if t_op_especial=='Infiltração' else pontuacao*1.3 if t_op_especial=='Escuta' else pontuacao*1.2 if t_op_especial=='Invasão' else pontuacao*1.1
 
 # 1º Requisito
-if localizacao in ['Manhattan', 'Brooklyn']:
+if localizacao=='Manhattan' or localizacao=='Brooklyn':
     print('Pelo menos nos bairros corretos Jake está!')
     # 2º Requisito
     if casos>=20:

@@ -19,17 +19,17 @@ else:
             if (jogadax!=jogaday):
                 if(jogadax=='papel' and jogaday=='tesoura'):
                     vida1-=3 if vida1>=3 else vida1
-                    vida2+=1 if vida2<10 else 0
+                    vida2+=1
                 elif(jogadax=='tesoura' and jogaday=='papel'):
                     vida2-=3 if vida2>=3 else vida2
-                    vida1+=1 if vida1<10 else 0
+                    vida1+=1
 
                 elif(jogadax=='pedra' and jogaday=='papel'):
                     vida1-=2 if vida1>=2 else vida1
-                    vida2+=2 if vida2<=8 else 0
+                    vida2+=2
                 elif(jogadax=='papel' and jogaday=='pedra'):
                     vida2-=2 if vida2>=2 else vida2
-                    vida1+=2 if vida1<=8 else 0
+                    vida1+=2
 
                 elif(jogadax=='pedra' and jogaday=='tesoura'):
                     vida2-=4 if vida2>=4 else vida2
@@ -39,5 +39,4 @@ else:
                 print(f'Esse turno terminou com {jg1} tendo {vida1} de vida e {jg2} tendo {vida2}!')
             else:
                 print('Eita, jogaram a mesma coisa dessa vez.')
-
         print(f'A rodada {i+1} vai para {jg1 if vida1!=0 else jg2}, que garante seus doces!')
