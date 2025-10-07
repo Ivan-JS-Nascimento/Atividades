@@ -2,23 +2,26 @@
 b_andre=int(input())
 b_bruno=int(input())
 b_clara=int(input())
-# controladores
+
+# --- controladores
+# while principal
 op=True
+# caso de erros durante o jogo
 erro_a=0
 erro_b=0
 erro_c=0
+# abre e fecha cada turno
 a=True
 b=True
 c=True
+# isso é pra não printaar que alguem saiu duas vezes
 g1=0;g2=0;g3=0
-gambiarra=''
-
+# ---
 while(op):
-    i=0
-    while( i < 3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else i < 2):
-        resultado_rodada = input() if(gambiarra=='') else gambiarra
-        gambiarra=''
+    for i in range (3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else 2):
+        # andre
         if(a==True and b_andre!=0):
+            resultado_rodada = input()
             if(resultado_rodada=='acertou'):
                 b_andre+=2 if(b_bruno!=0 and b_clara!=0) else 1
                 b_bruno-=1 if(b_bruno>=1) else 0
@@ -29,10 +32,14 @@ while(op):
                 if(erro_a==3):
                     print('andre perdeu feio')
                     if((b_bruno==0 or b_clara==0) or erro_b==3 or erro_c==3):
-                        i=10
                         op=False
+                        b=False
+                        c=False
             a=False
+
+        # bruno
         elif(b==True and b_bruno!=0):
+            resultado_rodada = input()
             if(resultado_rodada=='acertou'):
                 b_bruno+=2 if(b_andre!=0 and b_clara!=0) else 1
                 b_andre-=1 if(b_andre>=1) else 0
@@ -43,10 +50,13 @@ while(op):
                 if(erro_b==3):
                     print('bruno perdeu feio')
                     if(b_andre==0 or b_clara==0 or erro_a==3 or erro_c==3):
-                        i=10
                         op=False
+                        c=False
             b=False
+
+        # clara
         elif(c==True and b_clara!=0):
+            resultado_rodada = input()
             if(resultado_rodada=='acertou'):
                 b_clara+=2 if(b_andre!=0 and b_bruno!=0) else 1
                 b_bruno-=1 if(b_bruno>=1) else 0
@@ -57,16 +67,11 @@ while(op):
                 if(erro_c==3):
                     print('clara perdeu feio')
                     if((b_andre==0 or b_bruno==0) or erro_a==3 or erro_b==3):
-                        i=10
                         op=False
             c=False
-        else:
-            gambiarra=resultado_rodada
 
         if((b_andre==0 and b_bruno==0) or (b_bruno==0 and b_clara==0) or (b_andre==0 and b_clara==0)):
             op=False
-            i=718
-        i+=1
     else:
         if(b_andre==0 and erro_a<3 and g1==0):
             print('andre saiu do jogo')

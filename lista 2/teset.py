@@ -14,11 +14,11 @@ erro_c=0
 a=True
 b=True
 c=True
-# isso é pra não printaar que alguem saiu duas vezes
+# isso é pra nao printar duas vezes as saidas
 g1=0;g2=0;g3=0
 # ---
 while(op):
-    for i in range (3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else i < 2):
+    for i in range (3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else 2):
         # andre
         if(a==True and b_andre!=0):
             resultado_rodada = input()
@@ -33,6 +33,8 @@ while(op):
                     print('andre perdeu feio')
                     if((b_bruno==0 or b_clara==0) or erro_b==3 or erro_c==3):
                         op=False
+                        b=False
+                        c=False
             a=False
 
         # bruno
@@ -49,6 +51,7 @@ while(op):
                     print('bruno perdeu feio')
                     if(b_andre==0 or b_clara==0 or erro_a==3 or erro_c==3):
                         op=False
+                        c=False
             b=False
 
         # clara
