@@ -1,6 +1,8 @@
+# bolas
 b_andre=int(input())
 b_bruno=int(input())
 b_clara=int(input())
+# controladores
 op=True
 erro_a=0
 erro_b=0
@@ -10,8 +12,10 @@ b=True
 c=True
 g1=0;g2=0;g3=0
 gambiarra=''
+
 while(op):
-    for i in range(3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else 2):
+    i=0
+    while( i < 3 if(b_andre!=0 and b_bruno!=0 and b_clara!=0) else i < 2):
         resultado_rodada = input() if(gambiarra=='') else gambiarra
         gambiarra=''
         if(a==True and b_andre!=0):
@@ -62,6 +66,7 @@ while(op):
         if((b_andre==0 and b_bruno==0) or (b_bruno==0 and b_clara==0) or (b_andre==0 and b_clara==0)):
             op=False
             i=718
+        i+=1
     else:
         if(b_andre==0 and erro_a<3 and g1==0):
             print('andre saiu do jogo')
