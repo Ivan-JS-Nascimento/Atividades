@@ -1,7 +1,14 @@
+ponto_a=0
+ponto_j=0
+
 op=True
+op1=True
+
+t = True # tentativa tapear o for
 
 print('Começa agora o treinamento para grande final mundial de cabo de guerra!')
-while(op):
+
+while(op): # serve para perguntar novamente 
 
     qnt_partidas=int(input())
 
@@ -14,11 +21,6 @@ while(op):
 
         resi=int(input())
 
-        ponto_a=0
-        ponto_j=0
-
-        op1=True
-        t = True  # tentativa tapear o for
         for i in range(qnt_partidas):  # partidas
 
             if(t):
@@ -35,28 +37,38 @@ while(op):
                 while(op2):   # rodadas
                     n = int(input())
 
-                    very = (n**0.5)
+                    very = int(n**0.5)
+
+                    #quadrado = False
+                    #for i in range(1, n):
+                    #    if( i * i == n):
+                    #        quadrado = True
 
                     primo = True
                     for i in range(2, n):
                         if( (n % i) == 0 ):
                             primo = False
+                            break
 
-                    if( (very**2) == n ):  # Vitória de Arthur
+                    if( very**2 == n ):  # Vitória de Arthur
                         print('O número é um quadrado perfeito! Arthur consegue puxar mais forte.')
                         resi_arthur += 1
                         if( resi_joao >= 1 ):
                             resi_joao -= 1 
+                            if(resi_joao==0):
+                                op2 = False
                         else:
-                            op2 = False
+                                op2 = False
 
                     elif(primo): # Vitória de João
                         print('O primo do primo é primo do primo? João puxa mais forte!')
                         resi_joao += 1
                         if( resi_arthur >= 1 ):
                             resi_arthur -= 1 
+                            if(resi_arthur==0):
+                                op2 = False
                         else:
-                            op2 = False
+                                op2 = False
 
                     else:  # Vitória por Força
                         if(forca_arthur>forca_joao):
@@ -64,6 +76,8 @@ while(op):
                             resi_arthur += 1
                             if( resi_joao >= 1 ):
                                 resi_joao -= 1 
+                                if(resi_joao==0):
+                                    op2 = False
                             else:
                                 op2 = False
                         else:
@@ -71,18 +85,20 @@ while(op):
                             resi_joao += 1
                             if( resi_arthur >= 1 ):
                                 resi_arthur -= 1 
+                                if(resi_arthur==0):
+                                    op2 = False
                             else:
                                 op2 = False
                 else:
                     if(resi_joao == 0):
                         print('Arthur dá orgulho para Maceió e ganha a partida!')
                         ponto_a += 1
-                        if(ponto_a > ( qnt_partidas - 1 / 2 )):
+                        if(ponto_a == ( (qnt_partidas + 1) / 2 ) and ponto_j < ( (qnt_partidas + 1) / 2 ) ):
                             t =False
                     else:
                         print('João usa seus talentos de mangueboy e leva essa para casa!')
                         ponto_j += 1
-                        if(ponto_j > ( qnt_partidas - 1 / 2 )):
+                        if(ponto_j == ( (qnt_partidas + 1) / 2 )  and ponto_a < ( (qnt_partidas + 1) / 2 ) ):
                             t =False
                 
         else:
@@ -99,9 +115,6 @@ while(op):
                    print(f'O ganhador foi João com uma diferença de {ponto_j - ponto_a} partidas.')
                 else:
                     print(f'Arthur não teve chance! João venceu todas as partidas.')
-
-            
-
 
         op=False
     else:

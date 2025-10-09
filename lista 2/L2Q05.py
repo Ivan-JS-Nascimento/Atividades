@@ -76,15 +76,17 @@ while(op):
         if(b_andre==0 and erro_a<3 and g1==0):
             print('andre saiu do jogo')
             g1=1
-        elif(b_bruno==0 and erro_b<3 and g2==0):
+        if(b_bruno==0 and erro_b<3 and g2==0):
             print('bruno saiu do jogo')
             g2=1
-        elif(b_clara==0 and erro_c<3 and g3==0):
+        if(b_clara==0 and erro_c<3 and g3==0):
             print('clara saiu do jogo')
             g3=1
+
     a=True if(b_andre!=0 and erro_a!=3) else False
     b=True if(b_bruno!=0 and erro_b!=3) else False
     c=True if(b_clara!=0 and erro_c!=3) else False
+    
 else:
     if(c==False and b==False):
         print('andre ganhou')
