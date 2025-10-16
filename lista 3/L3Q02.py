@@ -22,13 +22,40 @@ if len(convidados) == 0 :
 else:
     valor_maximo = max(valor)
     quantos_maximos = valor.count(valor_maximo)
+    ix = valor.index(valor_maximo)
+
     if quantos_maximos > 1 :
         # vc parou aqui
+        a = ix
+        b = ix + 1
+        for nao in valor[ix+1:]:
+            if nao == valor_maximo:
+                if convidados[a] < convidados[b]:
+                    a = b
+            b += 1
+        
+        print(f'Obrigado para o(a) {convidados[a]} pelo(a) excelente {comidas[a]}')
     else:
-        print(f"Obrigado para o(a) {convidados[valor.index(max(valor))]} pelo(a) excelente {comidas[valor.index(max(valor))]}")
-    if len(convidados) > 1:
+        print(f"Obrigado para o(a) {convidados[ix]} pelo(a) excelente {comidas[ix]}")
 
-        print(f"Rapaz, {convidados[valor.index(min(valor))]} trouxe o(a) {comidas[valor.index(min(valor))]} que estava altamente mais ou menos!!!")
+    if len(convidados) > 1:
+        valor_minimo = min(valor)
+        quantos_maximos = valor.count(valor_minimo)
+        ix = valor.index(valor_minimo)
+        
+        if quantos_maximos > 1 :
+            # vc parou aqui
+            a = ix
+            b = ix + 1
+            for nao in valor[ix+1:]:
+                if nao == valor_minimo:
+                    if convidados[a] > convidados[b]:
+                        a = b
+                b += 1
+            print(f"Rapaz, {convidados[ix]} trouxe o(a) {comidas[ix]} que estava altamente mais ou menos!!!")
+        else:
+            print(f"Rapaz, {convidados[ix]} trouxe o(a) {comidas[ix]} que estava altamente mais ou menos!!!")
+
     print('Lista de convidados do Calabreso')
 
     x = 1
