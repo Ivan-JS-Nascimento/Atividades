@@ -1,25 +1,19 @@
-matriz = []
-matriz = eval(input())
-print(type(matriz))
-print(matriz[2][2])
+lista = [64, 34, 25, 12, 22, 11, 90]
+print(f"Lista original: {lista}")
 
 
 
-    if nome_goleiro == 'Rokenedy':
-    elif nome_goleiro == 'IShowSpeed':
-    elif nome_goleiro == 'Sérgio Soares':
-    elif nome_goleiro == 'Neymar Jr':
-    elif nome_goleiro == 'Gabriel Vasconcelos':
-    else:
-        habilidade_goleiro = int(input())
 
+n = len(lista)
+# Loop externo para controlar o número de passagens
+for i in range(n):
+    # Loop interno para comparar elementos adjacentes
+    for j in range(0, n - i - 1):
+        # Compara se o elemento atual é maior que o próximo
+        if lista[j] > lista[j + 1]:
+            # Troca os elementos de posição
+            lista[j], lista[j + 1] = lista[j + 1], lista[j]
 
+print(f"Lista ordenada: {lista_ordenada}")
+# Exemplo de uso:
 
-if tipo_treino == 'Batida de Falta':
-    matriz = eval(input())
-
-elif tipo_treino == 'Batida de Pênalti':
-    matriz = eval(input())
-
-elif tipo_treino == 'Batida de Ataque':
-    matriz = eval(input())
