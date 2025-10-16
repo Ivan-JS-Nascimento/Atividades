@@ -58,7 +58,7 @@ else:
                     if convidados[a] > convidados[b]:
                         a = b
                 b += 1
-            print(f"Rapaz, {convidados[ix]} trouxe o(a) {comidas[ix]} que estava altamente mais ou menos!!!")
+            print(f"Rapaz, {convidados[a]} trouxe o(a) {comidas[a]} que estava altamente mais ou menos!!!")
         else:
             print(f"Rapaz, {convidados[ix]} trouxe o(a) {comidas[ix]} que estava altamente mais ou menos!!!")
         # ---

@@ -23,8 +23,9 @@ habilidade_goleiro = 0
 # ---
 
 print(f'Meta por Partida: {meta}')
-
+w = 1
 for i in range(0,len(sequencia_list),2):
+ 
     # break 2.0
     if not acabo:
         tipo_treino = sequencia_list[i]
@@ -55,7 +56,7 @@ for i in range(0,len(sequencia_list),2):
         pontos_partidas = 0
 
         if gol :
-            # condicoes de cada goleiro
+        # condicoes de cada goleiro
             if nome_goleiro == 'Rokenedy':
                 print('Aí não dá, impossível de fazer gol no maior do mundo.')
                 gol = False
@@ -84,14 +85,14 @@ for i in range(0,len(sequencia_list),2):
             # Goleiro não especial
             else:
                 if habilidade > habilidade_goleiro :
-                    pontos_partidas = (habilidade-habilidade_goleiro)
+                    pontos_partidas = (habilidade - habilidade_goleiro)
 
 
-            if gol :
-                print('RECEBA! GOLAÇO! É O MELHOR DO MUNDO!')
-            else:
-                print('A jornada ainda não acabou!')
-            # --- ---
+        if gol :
+            print('RECEBA! GOLAÇO! É O MELHOR DO MUNDO!')
+        else:
+            print('A jornada ainda não acabou!')
+        # --- ---
 
         habilidade += pontos_partidas
         
@@ -102,11 +103,11 @@ for i in range(0,len(sequencia_list),2):
         elif habilidade <= 100:
             # Meta da partida
             if pontos_partidas >= meta:
-                print(f'VAMO! PARTIDA {(i//2)+1} DE {num_sessoes}!')
+                print(f'VAMO! PARTIDA {w} DE {num_sessoes}!')
             else:
                 print('Dá pra recuperar depois! Vamo seguindo!')
     # ---
-
+    w += 1
 if habilidade < 100:
     print('Ano que vem tem InterCIn de novo! É só eu treinar mais…')
 elif habilidade == 100:
