@@ -5,12 +5,32 @@ quantidade_componente = []
 nome_componente = []
 ponte = []
 
+pronto = False
 op = True
 
-while op :
-    nome_quant = input()
-    separacao = nome_quant.split(' ')
+# 1 Redstone
+# 2 Repetidores
+# 3 Tochas de Redstone
+# 4 Lâmpadas de Redstone
+# 5 Blocos de Notas
+# 6 Observadores
+# 7 Pistões Aderentes
+# 8 Comparadores
+# 9 Pistões
+o1 = 0
+o2 = 0
+o3 = 0
+o4 = 0
+o5 = 0
+o6 = 0
+o7 = 0
+o8 = 0
+o9 = 0
 
+while op :
+    nome_quant = input() # nome e quantidades dos componentes juntos
+    separacao = nome_quant.split(' ')
+    
     for sep in separacao:
         # encerra 
         if sep == 'Construir!':
@@ -19,82 +39,219 @@ while op :
         # aqui vai contecer tudo, ja que o numero e a ultima entrada para cada conponete
         elif sep.isnumeric():
             quantidade_componente.append(int(sep))
-            nome_componente.append( " ".join(ponte))
+            nome_componente.append( " ".join(ponte)) # junta tudo em ponte para gerar o nome corretamente
             ponte = []
 
             ix = len(nome_componente) # ultimo nome add na lista
             h = nome_componente[ix]
             N = quantidade_componente[ix]
+
+            # prints para cada projeto
             if nome_projeto == 'Memória ROM Simples':
-                # Tochas de Redstone
+
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
+
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
+
+                elif h == 'Tochas de Redstone':
+                    print(f'Tochas de Redstone! Ótimo para inverter um sinal ou energizar o sistema. (+{N} Tochas de Redstone)')
+                    o3 = N
+
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
+
+                if o1 >= 256 and o2 >= 64 and o3 >= 128:
+                    pronto = True
 
             elif nome_projeto == 'Calculadora de 4 bits':
-                # Tochas de Redstone
-                # Lâmpadas de Redstone
+
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
+
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
+
+                elif h == 'Tochas de Redstone':
+                    print(f'Tochas de Redstone! Ótimo para inverter um sinal ou energizar o sistema. (+{N} Tochas de Redstone)')
+                    o3 = N
+
+                elif h == 'Lâmpadas de Redstone':
+                    print(f'Lâmpadas para o display! O resultado vai ficar bem visível. (+{N} Lâmpadas de Redstone)')
+                    o4 = N
+
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
+
+                if o1 >= 512 and o2 >= 128 and o3 >= 64 and o4 >= 256:
+                    pronto = True
 
             elif nome_projeto == 'Sequenciador Musical':
-                # Blocos de Notas
-                # Observadores
+
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
+
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
+
+                elif h == 'Blocos de Notas':
+                    print(f'Blocos de Notas! Quem sabe não rola uma musiquinha no final? (+{N} Blocos de Notas)')
+                    o5 = N
+
+                elif h == 'Observadores':
+                    print(f'Observadores a postos! Nenhuma atualização de bloco passará despercebida. (+{N} Observadores)')
+                    o6 = N
+
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
+
+                if o1 >= 1024 and o2 >= 256 and o5 >= 64 and o6 >= 128:
+                    pronto = True
+
 
             elif nome_projeto == 'Processador de 8 Bits':
-                # Lâmpadas de Redstone
-                # Pistões Aderentes
 
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
+
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
+
+                elif h == 'Lâmpadas de Redstone':
+                    print(f'Lâmpadas para o display! O resultado vai ficar bem visível. (+{N} Lâmpadas de Redstone)')
+                    o4 = N
+                
+                elif h == 'Pistões Aderentes':
+                    print(f'Pistões Aderentes! Perfeitos para criar mecanismos retráteis. (+{N} Pistões Aderentes)')
+                    o7 = N
+
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
+
+                if o1 >= 4096 and o2 >= 1024 and o4 >= 2048 and o7 >= 512:
+                    pronto = True
 
             elif nome_projeto == 'Display de Vídeo 8x8':
-                # Comparadores
-                # Pistões
+
+
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
+
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
+
+                elif h == 'Comparadores':
+                    print(f'Comparadores para a lógica! A precisão é a alma do negócio. (+{N} Comparadores)')
+                    o8 = N
+
+                elif h == 'Pistões':
+                    print(f'Pistões para mover as coisas de lugar. Isso vai ser útil! (+{N} Pistões)')
+                    o9 = N
+
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
+
+                if o1 >= 2048 and o2 >= 512 and o8 >= 256 and o9 >=128:
+                    pronto = True
 
             elif nome_projeto == 'Supercomputador V13':
-                 # Comparadores
-                 # Pistões Aderentes
 
+                if h == 'Redstone':
+                    print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                    o1 = N
 
-            # Redstone
-            # Repetidores
+                elif h == 'Repetidores':
+                    print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
+                    o2 = N
 
-            # Tochas de Redstone
-            # Lâmpadas de Redstone
-            # Blocos de Notas
-            # Observadores
-            # Pistões Aderentes
-            # Comparadores
-            # Pistões
+                elif h == 'Comparadores':
+                    print(f'Comparadores para a lógica! A precisão é a alma do negócio. (+{N} Comparadores)')
+                    o8 = N
 
+                elif h == 'Pistões Aderentes':
+                    print(f'Pistões Aderentes! Perfeitos para criar mecanismos retráteis. (+{N} Pistões Aderentes)')
+                    o7 = N
+                    
+                else:
+                    print(f'Hmm, {h} não parece ser útil para este projeto.')
 
-            if h == 'Redstone':
-                print(f'Mais redstone! A energia que move o progresso! (+{N} Redstone)')
+                if o1 >= 8192 and o2 >= 2048 and o8 >= 1024 and o7 >=1024:
+                    pronto = True
 
-            elif h == 'Repetidores':
-                print(f'Repetidores para garantir que o sinal chegue longe! Perfeito! (+{N} Repetidores)')
-
-            elif h == 'Tochas de Redstone':
-                print(f'Tochas de Redstone! Ótimo para inverter um sinal ou energizar o sistema. (+{N} Tochas de Redstone)')
-
-            elif h == 'Lâmpadas de Redstone':
-                print(f'Lâmpadas para o display! O resultado vai ficar bem visível. (+{N} Lâmpadas de Redstone)')
-
-            elif h == 'Blocos de Notas':
-                print(f'Blocos de Notas! Quem sabe não rola uma musiquinha no final? (+{N} Blocos de Notas)')
-
-            elif h == 'Observadores':
-                print(f'Observadores a postos! Nenhuma atualização de bloco passará despercebida. (+{N} Observadores)')
-
-            elif h == 'Comparadores':
-                print(f'Comparadores para a lógica! A precisão é a alma do negócio. (+{N} Comparadores)')
-
-            elif h == 'Pistões':
-                print(f'Pistões para mover as coisas de lugar. Isso vai ser útil! (+{N} Pistões)')
-
-            elif h == 'Pistões Aderentes':
-                print(f'Pistões Aderentes! Perfeitos para criar mecanismos retráteis. (+{N} Pistões Aderentes)')
-
-
+            for u in nome_componente:  # caso componente se repita 
+                u_ix = nome_componente.index(u)
+                if u == nome_componente[ix]:
+                    quantidade_componente[u_ix]=N
+                    nome_componente.pop()
+                    quantidade_componente.pop()
             # -----
 
         # guarda temporariamente ate juntar o nome completo
         else:
             ponte.append(sep)
 
-print(nome_componente)
-print(quantidade_componente)
+# ------------------------------------------
+esp = [] # os componentes do projeto
+
+if nome_projeto == 'Memória ROM Simples':
+    esp = ['Redstone','Repetidores','Tochas de Redstone']
+
+elif nome_projeto == 'Calculadora de 4 bits':
+    esp = ['Redstone','Repetidores','Tochas de Redstone','Lâmpadas de Redstone']
+
+elif nome_projeto == 'Sequenciador Musical':
+    esp = ['Redstone','Repetidores','Blocos de Notas','Observadores']
+
+elif nome_projeto == 'Processador de 8 Bits':
+    esp = ['Redstone','Repetidores','Lâmpadas de Redstone','Pistões Aderentes']
+
+elif nome_projeto == 'Display de Vídeo 8x8':
+    esp = ['Redstone','Repetidores','Comparadores','Pistões']
+
+elif nome_projeto == 'Supercomputador V13':
+    esp = ['Redstone','Repetidores','Comparadores','Pistões Aderentes']
+
+
+if pronto: # caso os materias estejam ok
+    print(f'Viniccius13 conseguiu construir o {nome_projeto}! Partiu programar!')
+
+    print('')
+    print(f'Para construirmos a(o) {nome_projeto}, utilizamos:')
+    print('')
+
+    ip = [] # index dos intes que nao fazem parte
+
+    for a in nome_componente:
+        x = nome_componente.index(a)
+        if a in esp:
+            print(f'{a} : {quantidade_componente[x]}')
+        else:
+            ip.append(x) 
+
+    if ip!=[]:
+        print('')
+        print('Mas, em nossa jornada, também coletamos:')
+        print('')
+        for p in ip:
+            print(f'{nome_componente[p]} : {quantidade_componente[p]}')
+else:
+    print('')
+    print(f'Ainda não é possível construir o {nome_projeto}! Faltam:')
+    print('')
+    for t in esp:
+        for m in nome_componente:
+            if t == m:
+                t_ix = nome_componente[t]
+                packs = 
+                print(f'')
