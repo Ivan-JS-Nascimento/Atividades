@@ -1,166 +1,188 @@
-matriz = []
 op = True
-hp_sam = 100
-hp_neil = 100
-arma_atual = 'Rifle'
-danoNeil = 0
-hitsFogo = 0
-acoes = 0 # quantidade de ações de sam
-dns = 0 # quantidade de vezes que neil sofrel dano
 
-# cordenadas
-sam = []
-piso_s = 'P'
-neil = []
-piso_n = 'P'
-dist = 0
+# makoto
+hp = 300
+mana = 70
 
-# ---funcoes---
+# ----funcoes----
 
-# Função para calcular a distância de Chebyshev
-def chebyshev(a,b):
-    return max( abs(b[0]-a[0]), abs(b[1]-a[1]))
+# Função de Combate
+def combate(hp, mana, p, s):
+    op = True
+    makoto = [p, hp, mana]
+    n = len(s)
+    s_luta = 0 # sombra que ira lutar
+    golpes_usados = [2 , 1]# [yukari , junpei]
 
-# Função para a ação de atirar de Sam
-def arsenal(arma_atual, dist):
-    dano = 0
-    if arma_atual == 'Espingarda' and dist <= 2:
-        dano = 25
-    elif arma_atual == 'Rifle':
-        if dist == 3:
-            dano = 15
+    while op:
+        sombras_ativas = False
+        
+        for i in range(n):
+            nocaute = s[i][5]
+
+            if not sombras_ativas and nocaute == 'a':
+                sombras_ativas = True
+                s_luta = i
+
+
+        if sombras_ativas:
+            if hp > 0:
+                makoto, s[s_luta], golpes_usados = turno(makoto, s[s_luta], golpes_usados)
         else:
-            dano = 5
+            op = False
+
+
+
+# Funções de turno, tanto do Makoto quanto para a Sombra
+def turno(makoto, sombra, g_u):
+    
+    for i in range(2):
+
+        if i==0:# makoto
+            mov = input()
+
+            if mov == 'Yukari':
+                if g_u[0] > 0:
+                    makoto[1] = makoto[1] + 100 if( makoto[1]<=200)else 300
+                    g_u[0] -= 1
+            elif mov == 'Junpei':
+                if g_u[1] > 0:
+                    sombra[1] -= 100
+                    sombra[5] = 'd' if( alejado and sombra[1]>0 )else 'm'
+                    g_u[1] -= 1
+            else:
+                if mov == 'Persona':
+                    makoto[2] -= makoto[0][3]
+
+                dano, alejado = cal_dano(mov, makoto[0])
+                sombra[1] -= dano
+                sombra[5] = 'd' if( alejado and sombra[1]>0 )else 'm' if( sombra[1]<=0 )else 'a'
+        else:# sombra
+            if sombra[5] == 'a':
+                dano = cal_dano(sombra)
+                makoto[1] -= dano
+
+    return makoto, sombra, g_u
+
+# Cálculo de dano
+def cal_dano(mov = '', persona = [], sombra = []):
+# atk_usuario: inteiro que representa a força do usuário.
+# poder_base: inteiro que representa o poder base do golpe utilizado.
+    poder_base = 0
+    if persona == []:
+        if persona[2] in ['Zio', 'Garu', 'Agi', 'Bufu']:
+            poder_base = 3
+
+        elif persona[2] in ['Corte', 'Perfuração', 'Pancada']:
+            poder_base = 4
+
+        elif persona[2] in ['Zionga', 'Garula', 'Agilao', 'Bufula']:
+            poder_base = 5
+
     else:
-        if dist >= 4:
-            dano = 15
+        if sombra[3] in ['Zio', 'Garu', 'Agi', 'Bufu']:
+            poder_base = 3
 
-    return dano
-# Função para a mecânica de teletransporte de Neil
-def tp(sam, neil, matriz, piso_n):
-    mx = 0
-    matriz[neil[0]][neil[1]] = piso_n
+        elif sombra[3] in ['Corte', 'Perfuração', 'Pancada']:
+            poder_base = 4
 
-    for i in range(6):
-        for j in range(6):
-            maximo = chebyshev(sam, b=[i,j])
-            if maximo >= mx and matriz[i][j]!='I':
-                mx = maximo
-                neil = [i,j]
+        elif sombra[3] in ['Zionga', 'Garula', 'Agilao', 'Bufula']:
+            poder_base = 5
 
-    piso_n = matriz[neil[0]][neil[1]]
-    matriz[neil[0]][neil[1]] = 'N'
+    atk_usuario = persona[1] if( persona != [])else sombra[2]
 
-    return neil, matriz , piso_n
+    dano = 0
+    alejado = False
 
-def mover_sam(matriz, sam, piso_s, mov):
-    x = sam[0]
-    y = sam[1]
-    matriz[x][y] = piso_s # devolve a matriz onde sam estava em cima
+    if mov == 'Persona':
+        lista = input().split(' ')
+        x = bubblesort(lista)
 
-    # inpede que ele se mova para fora da matriz e para a casa I
-    if mov == 'W':
         if x != 0:
-            if matriz[x-1][y] != 'I':
-                x -= 1
-        
-    elif mov == 'A':
-        if y != 0:
-            if matriz[x][y-1] != 'I':
-                y -= 1
-        
-    elif mov == 'S':
-        if x != 5:
-            if matriz[x+1][y] != 'I':
-                x +=1
-     
-    elif mov == 'D':
-        if y != 5:
-            if matriz[x][y+1] != 'I':
-                y += 1
+            if x == 2:
+                alejado = True
 
-    piso_s = matriz[x][y] # recebe o novo piso
-    matriz[x][y] = 'S' # a matriz recebe a nova posicao de sam
-    sam = [x,y]
+            dano = int(((poder_base * 15) ** 0.5) * (atk_usuario / 2))
 
-    return matriz, sam, piso_s
+        return dano, alejado
+    
+    elif mov == 'Atacar':
+        # nesse caso o atk é o da persona
+        dano = int((( 2 * 15) ** 0.5) * (atk_usuario / 2))
 
+        return dano, alejado
 
-# -------------
+    else: # else para a sombra
+        dano = int((( poder_base * 15) ** 0.5) * (atk_usuario / 2))
 
-for i in range(6):
-    m = input().split(' ')
-    matriz.append(m)
+        return dano
+    
+    
+# Função para Bubblesort
+def bubblesort(lista):
+    x = 0 # 0 == errou ,1 == acerto, 2 == acerto critico
+    n = len(lista)
+    l_crescente = lista
+    l_decrecente = lista
 
-for i in range(6):
-    for j in range(6):
-        if matriz[i][j] == 'S':
-            sam = [ i , j ]
-        
-        if matriz[i][j] == 'N':
-            neil = [ i , j ]
+    cres = 0 # contadoir de crescente
+    decres = 0 # contador de trocas decrescente
 
-print('Sam: Mas que lugar é esse aqui?')
-print('Dollman: WASD... Num exclusivo de PS5? Ah, fala sério!')
-print()
-
-uma_vez = True
-while op:
-    dist = chebyshev(sam, neil)
-    mov = input()
-
-    if mov in['W','A','S','D']:
-        matriz, sam, piso_s = mover_sam(matriz, sam, piso_s, mov)
-     
-    elif mov in ['Rifle','Metralhadora','Espingarda']:
-        arma_atual = mov
-        print(f'Arma trocada para {arma_atual}.')
-        
-    else:
-        dano = arsenal(arma_atual, dist)
-        hp_neil -= dano
-        if dns < 3 and dano > 0:
-            dns += 1
-            if dns == 3 and hp_neil > 0:
-                dns = 0
-                neil, matriz, piso_n = tp(sam, neil, matriz, piso_n)
-                for linha in matriz:
-                    print(*linha)
-
-    # se ele estiver no fogo
-    if piso_s == 'F':
-            hitsFogo += 1
-            hp_sam -= 5
-
-    # contabilizar as acoes de sam
-    if acoes < 4:
-        acoes += 1
-        if acoes == 4 and hp_neil > 0:
-            acoes = 0
-            hp_sam -= 15
-            danoNeil += 15
-            print('>>> Você recebe um disparo de Neil! <<<')
+    for i in range(n-1):
+        for j in range(n-i-1):
+            if l_crescente[j] > l_crescente[j+1]:
+                l_crescente[j], l_crescente[j+1] = l_crescente[j+1], l_crescente[j]
+                cres += 1
             
-    # verifica se a vida de sam chegou em <= 40 pela primeira vez
-    if hp_sam<=40 and uma_vez:
-        print('Dollman: A Fragile comeu todos os criptobiontes da DHV Magalhães... Se curar não é uma opção. Tome cuidado, Sam.')
-        uma_vez = False
+            if l_decrecente[j] < l_decrecente[j+1]:
+                l_decrecente[j], l_decrecente[j+1] = l_decrecente[j+1], l_decrecente[j]
+                decres += 1
 
-    # encerra o programa
-    if hp_neil <= 0:
+    if cres == 0 or decres == 0:
+        x = 2
+    else:
+        n_alter = min(cres, decres)
+        if n_alter <= 5:
+            x = 1
+
+    return x
+# ---------------
+
+print('Mitsuru: Vamos iniciar nossa exploração, tomem cuidado.')
+while op: # cada volta do while é um andar
+    persona = []
+    sombras = []
+
+    per = input().split(' - ')
+    # converte o que for digito para int
+    for item in per:
+        if item.isdigit():
+            persona.append(int(item))
+        else:
+            persona.append(item)
+    
+    print(f'{persona[0]}: Eu sou tu e tu és eu...')
+
+    n_sombras = int(input())
+    # recebe todas as sombras
+    for i in range(n_sombras):
+        somb = input().split(' - ')
+        somb.append('a') # adicionei o estado de cada sombras, sendo eles a(ativo), d(derrubado), m(morto)
+        s = []
+        # converte digito para int
+        for item in somb:
+            if item.isdigit():
+                s.append(int(item))
+            else:
+                s.append(item)
+        sombras.append(s)
+
+
+    combate(hp, mana, persona, sombras)
+
+    if hp > 0:
+        hp = (hp + 50) if(hp <= 250)else 300
+        mana = (mana + 15) if( mana <= 55)else 70
+    else:
         op = False
-     
-        print()
-        print('MISSÃO COMPLETA! - Investigue a Anomalia')
-        print('========================================')
-        likes = 1000 - (danoNeil*8) - (hitsFogo*10)
-        print(f'Likes recebidos: 👍 {likes}')
-     
-    elif hp_sam <= 0:
-        op = False
-     
-        print()
-        print('MISSÃO FALHOU')
-        print('==============')
-        print('Sam foi derrotado.')
-        print('[Sua alma vaga pela Emenda, buscando reencontrar seu corpo perdido...]')
+
