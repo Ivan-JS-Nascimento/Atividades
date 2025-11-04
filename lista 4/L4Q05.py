@@ -56,26 +56,31 @@ def tp(sam, neil, matriz, piso_n):
 def mover_sam(matriz, sam, piso_s, mov):
     x = sam[0]
     y = sam[1]
-    matriz[x][y] = piso_s
+    matriz[x][y] = piso_s # devolve a matriz onde sam estava em cima
 
+    # inpede que ele se mova para fora da matriz e para a casa I
     if mov == 'W':
-        if x != 0 and matriz[x-1][y] != 'I':
-            x -= 1
+        if x != 0:
+            if matriz[x-1][y] != 'I':
+                x -= 1
         
     elif mov == 'A':
-        if y != 0 and matriz[x][y-1] != 'I':
-            y -= 1
+        if y != 0:
+            if matriz[x][y-1] != 'I':
+                y -= 1
         
     elif mov == 'S':
-        if x != 5 and matriz[x+1][y] != 'I':
-            x +=1
+        if x != 5:
+            if matriz[x+1][y] != 'I':
+                x +=1
      
     elif mov == 'D':
-        if y != 5 and matriz[x][y+1] != 'I':
-            y += 1
+        if y != 5:
+            if matriz[x][y+1] != 'I':
+                y += 1
 
-    piso_s = matriz[x][y]
-    matriz[x][y] = 'S'
+    piso_s = matriz[x][y] # recebe o novo piso
+    matriz[x][y] = 'S' # a matriz recebe a nova posicao de sam
     sam = [x,y]
 
     return matriz, sam, piso_s
@@ -119,7 +124,7 @@ while op:
         hp_neil -= dano
         if dns < 3 and dano > 0:
             dns += 1
-            if dns == 3:
+            if dns == 3 and hp_neil > 0:
                 dns = 0
                 neil, matriz, piso_n = tp(sam, neil, matriz, piso_n)
                 for linha in matriz:
@@ -128,7 +133,7 @@ while op:
     # contabilizar as acoes de sam
     if acoes < 4:
         acoes += 1
-        if acoes == 4:
+        if acoes == 4 and hp_neil > 0:
             acoes = 0
             hp_sam -= 15
             danoNeil += 15
