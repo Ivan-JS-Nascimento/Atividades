@@ -5,8 +5,8 @@ hp_neil = 100
 arma_atual = 'Rifle'
 danoNeil = 0
 hitsFogo = 0
-acoes = 0 # ação de sam
-dns = 0 # dano que neil sofrel
+acoes = 0 # quantidade de ações de sam
+dns = 0 # quantidade de vezes que neil sofrel dano
 
 # cordenadas
 sam = []
@@ -51,7 +51,7 @@ def tp(sam, neil, matriz, piso_n):
     piso_n = matriz[neil[0]][neil[1]]
     matriz[neil[0]][neil[1]] = 'N'
 
-    return matriz , piso_n
+    return neil, matriz , piso_n
 
 def mover_sam(matriz, sam, piso_s, mov):
     x = sam[0]
@@ -95,15 +95,13 @@ for i in range(6):
         if matriz[i][j] == 'N':
             neil = [ i , j ]
 
-dist = chebyshev(sam, neil)
-
 print('Sam: Mas que lugar é esse aqui?')
 print('Dollman: WASD... Num exclusivo de PS5? Ah, fala sério!')
 print()
 
 uma_vez = True
 while op:
-    
+    dist = chebyshev(sam, neil)
     mov = input()
 
     if mov in['W','A','S','D']:
@@ -117,27 +115,30 @@ while op:
         print(f'Arma trocada para {arma_atual}.')
         
     else:
-        hp_neil -= arsenal(arma_atual, dist)
-        if dns < 3:
+        dano = arsenal(arma_atual, dist)
+        hp_neil -= dano
+        if dns < 3 and dano > 0:
             dns += 1
-        else:
-            matriz, piso_n = tp(sam, neil, matriz, piso_n)
-            for linha in matriz:
-                print(*linha)
-    
+            if dns == 3:
+                dns = 0
+                neil, matriz, piso_n = tp(sam, neil, matriz, piso_n)
+                for linha in matriz:
+                    print(*linha)
+
     # contabilizar as acoes de sam
     if acoes < 4:
         acoes += 1
-    else:
-        acoes = 0
-        hp_sam -= 15
-        danoNeil += 15
-        print('>>> Você recebe um disparo de Neil! <<<')
-        
-        if hp_sam<=40 and uma_vez:
-            print('Dollman: A Fragile comeu todos os criptobiontes da DHV Magalhães... Se curar não é uma opção. Tome cuidado, Sam.')
-            uma_vez = False
-    
+        if acoes == 4:
+            acoes = 0
+            hp_sam -= 15
+            danoNeil += 15
+            print('>>> Você recebe um disparo de Neil! <<<')
+            
+    # verifica se a vida de sam chegou em <= 40 pela primeira vez
+    if hp_sam<=40 and uma_vez:
+        print('Dollman: A Fragile comeu todos os criptobiontes da DHV Magalhães... Se curar não é uma opção. Tome cuidado, Sam.')
+        uma_vez = False
+
     # encerra o programa
     if hp_neil <= 0:
         op = False
