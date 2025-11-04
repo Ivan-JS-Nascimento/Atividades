@@ -19,9 +19,21 @@ def combate(hp, mana, p, s):
             if hp_s>0:
                 sombras_ativas = True
 
+        if sombras_ativas:
+            if hp > 0:
+                turno()
+        else:
+            op = False
 # Funções de turno, tanto do Makoto quanto para a Sombra
+def turno():
+    op = True
+
+    while op:
+        cal_danno()
 
 # Cálculo de dano
+def cal_danno():
+    dano = 0
 
 # Função para Bubblesort
 
@@ -30,7 +42,7 @@ def combate(hp, mana, p, s):
 print('Mitsuru: Vamos iniciar nossa exploração, tomem cuidado.')
 while op: # cada volta do while é um andar
     persona = []
-    Sombras = []
+    sombras = []
 
     per = input().split(' - ')
     # converte o que for digito para int
