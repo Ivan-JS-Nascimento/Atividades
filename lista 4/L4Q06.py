@@ -1,3 +1,4 @@
+# levar em consideracao que eu sou 
 op = True
 
 # makoto
@@ -32,13 +33,13 @@ def combate(hp, mana, p, s):
             op = False
 
 
-
 # Funções de turno, tanto do Makoto quanto para a Sombra
 def turno(makoto, sombra, g_u):
     
     for i in range(2):
 
         if i==0:# makoto
+            print('Makoto: O que fazer...')
             mov = input()
 
             if mov == 'Yukari':
@@ -57,6 +58,16 @@ def turno(makoto, sombra, g_u):
                 dano, alejado = cal_dano(mov, makoto[0])
                 sombra[1] -= dano
                 sombra[5] = 'd' if( alejado and sombra[1]>0 )else 'm' if( sombra[1]<=0 )else 'a'
+
+                # outputs
+                if alejado == True:
+                    print(f'Makoto: Venha {makoto[0][0]}!')
+                elif dano != 0:
+                    print('Makoto: Persona!')
+                else:
+                    print('Makoto: O quê?!')
+                # ----------
+
         else:# sombra
             if sombra[5] == 'a':
                 dano = cal_dano(sombra)
