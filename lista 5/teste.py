@@ -6,7 +6,7 @@ def contar_combinacoes(valor, notas, atual, todas):
         return 0
 
     # primeira rota
-    atual.append(notas[0])
+    atual.append(notas[0])                                            
     num1 = contar_combinacoes(valor - notas[0], notas, atual, todas)
     atual.pop()
 
