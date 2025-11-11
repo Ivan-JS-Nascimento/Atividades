@@ -2,7 +2,7 @@ def num_rep(doces, n):
     if doces == 0:
         return 1
 
-    elif doces < 0 or n > 4:
+    elif doces < 0 or n > doces:
         return 0
 
     x = num_rep(doces-n, n) 
