@@ -1,52 +1,43 @@
-def contar_combinacoes(valor, notas, atual, todas):
-    if valor == 0:
-        todas.append(atual.copy())  # salva a combinação atual
+def teste(n, ocupado, linha = 0, tabuleiro=[]):
+
+    if tabuleiro == []:
+        tabuleiro = [[0] * n for _ in range(n)]
+
+        for i in range(n):
+            tabuleiro[ocupado[0]][i] = -1
+            tabuleiro[i][ocupado[1]] = -1
+
+    if linha == n:
         return 1
-    if valor < 0 or notas == []:
-        return 0
+    
+    num  = 0
 
-    # primeira rota
-    atual.append(notas[0])                                            
-    num1 = contar_combinacoes(valor - notas[0], notas, atual, todas)
-    atual.pop()
+    for coluna in range(n):
 
-    # pula para a proxima rota
-    num2 = contar_combinacoes(valor, notas[1:], atual, todas)
+        if tabuleiro[linha][coluna] == 0:
+            valido = True
 
-    return num1 + num2
+            for i in range(1, linha+ 1):
+                if tabuleiro[linha - i][coluna] == 1:
+                    valido = False
+                    break
 
-notas = [100, 50, 20, 10, 5]
-notas_usadas = [0, 0, 0, 0, 0]
+                if coluna -i >= 0 and tabuleiro[linha - 1][coluna - 1] == 1:
+                    valido = False
+                    break
 
-todas = [] # todas as combinaçoes
+                if coluna + i < n and tabuleiro[linha - 1][coluna + 1] == 1:
+                    valido = False
+                    break
 
-valor = int(input()) # total a ser pago
-combi = contar_combinacoes(valor, notas, [], todas)
+            if valido:
+                tabuleiro[linha][coluna] = 1
+                num += teste(n, ocupado, linha+1, tabuleiro)
+                tabuleiro[linha][coluna] = 0
 
-print(f'Calculando possibilidades para o valor: {valor}')
-
-if combi == 1:
-    print('\nEssa foi fácil! Só existe 1 possibilidade de pagar essa conta.')
-elif combi == 0:
-    print('\nInfelizmente, não há como pagar essa conta com as notas disponíveis.')
+    return num
 
 
-print(f'\nTotal de possibilidades: {combi}')
-print('\nUso das notas:')
-
-for i in todas:
-    for j in i:
-        if j == 5:
-            notas_usadas[4] += 1
-        elif j == 10:
-            notas_usadas[3] += 1
-        elif j == 20:
-            notas_usadas[2] += 1
-        elif j == 50:
-            notas_usadas[1] += 1
-        elif j == 100:
-            notas_usadas[0] += 1
-
-for i in range(5):
-
-    print(f'R${notas[i]}: usada em {notas_usadas[i]} combinações')
+n = 5
+ocupado = [3, 2]
+print(teste(n, ocupado))
