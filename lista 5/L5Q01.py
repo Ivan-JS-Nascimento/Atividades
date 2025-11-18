@@ -1,5 +1,4 @@
 
-
 # resumindo:
 # imagine todas as combinacoes das 'notas' como uma ramificacoes infinita
 # essa funcao usa a 'rota atual'( que nao deixa de ser a repeticao da funcao varias vesez)

@@ -1,11 +1,13 @@
 def teste(n, ocupado, linha = 0, tabuleiro=[]):
+    print(f' n: {n} , linha: {linha}')
+    print(f' tabuleiro ')
 
     if tabuleiro == []:
-        tabuleiro = [[0] * n for _ in range(n)]
-
-        for i in range(n):
-            tabuleiro[ocupado[0]][i] = -1
-            tabuleiro[i][ocupado[1]] = -1
+        tabuleiro = [[80] * n for _ in range(n)]
+        tabuleiro[ocupado[0]][ocupado[1]] = 77
+       
+    for i in range(n):
+        print(tabuleiro[i])
 
     if linha == n:
         return 1
@@ -13,31 +15,35 @@ def teste(n, ocupado, linha = 0, tabuleiro=[]):
     num  = 0
 
     for coluna in range(n):
-
-        if tabuleiro[linha][coluna] == 0:
+        print('---------------')
+        print(f'coluna: {coluna}')
+        if tabuleiro[linha][coluna] == 80:
             valido = True
 
             for i in range(1, linha+ 1):
-                if tabuleiro[linha - i][coluna] == 1:
+                print(f' for interno i: {i}')
+                if tabuleiro[linha - i][coluna] == 11:
+                    print('case 1')
                     valido = False
                     break
 
-                if coluna -i >= 0 and tabuleiro[linha - 1][coluna - 1] == 1:
+                if coluna - i >= 0 and tabuleiro[linha - i][coluna - i] == 11:
+                    print('caso 2')
                     valido = False
                     break
 
-                if coluna + i < n and tabuleiro[linha - 1][coluna + 1] == 1:
+                if coluna + i < n and tabuleiro[linha - i][coluna + i] == 11:
+                    print('caso 3')
                     valido = False
                     break
 
             if valido:
-                tabuleiro[linha][coluna] = 1
+                tabuleiro[linha][coluna] = 11
                 num += teste(n, ocupado, linha+1, tabuleiro)
-                tabuleiro[linha][coluna] = 0
+                tabuleiro[linha][coluna] = 80
 
     return num
 
-
 n = 5
-ocupado = [3, 2]
+ocupado = [2, 1]
 print(teste(n, ocupado))
