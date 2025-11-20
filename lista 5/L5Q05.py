@@ -1,100 +1,105 @@
-def caminho(n, tictac, mapa, byte, saida, vali, visitado):
-    guarda_posicao=''
-    if visitado != [] and byte in visitado:
-        return tictac-1, vali
+# obs: descomente todos os #? para entender melhor o caminho que byte percorre
 
-    visitado.append(byte.copy())
+def caminho(n, tictac, mapa, byte, saida, vali, visitado, t):
+# condicoes de retorno --
 
-    if byte == saida:
-        return tictac, True
+#?    guarda_posicao=''
+    if visitado != [] and byte in visitado: # ja passou aqui
+        return t, vali
 
-    elif tictac >= 60:
-        return tictac-1, vali
+    visitado.append(byte.copy()) # guarda o caminho atual
 
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        if mapa[byte[0]][byte[1]] == 'A':
-            return tictac-1, vali
-    else:
-        return tictac-1, vali
+    if byte == saida: # caso chegue na saida 
+        if t == 0:
+            t = tictac
+
+        elif tictac < t: # guranda o menor caminho
+            t = tictac
+
+        return t, True
+
+    elif tictac >= 60: # caso o tempo acabe
+        return t, vali
+
+# -----------------------
+# movivemtacoes ---------
+
+    b = [byte[0] + 1, byte[1]] # anda uma casa para baixo
+
+    if (b[0] < n and b[1] < n and b[0] >= 0 and b[1] >= 0) and (mapa[ b[0] ][ b[1] ] != 'A') : # esta dentro do mapa e nao esta encima de uma abobora
+#?        guarda_posicao = mapa[b[0]][b[1]]
+#?        mapa[b[0]][b[1]] = 'B'
+#?        for i in mapa:
+#?            print(i)
+#?        print()
+
+        t, vali = caminho(n, tictac+1, mapa, b, saida, vali, visitado.copy(), t)
+
+#?        mapa[b[0]][b[1]] = guarda_posicao
+#?        for i in mapa:
+#?            print(i)
+#?        print()
+
     
-    
-    byte[0] += 1 # baixo
 
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        guarda_posicao = mapa[byte[0]][byte[1]]
-        mapa[byte[0]][byte[1]] = 'B'
-        for i in mapa:
-            print(i)
-        print()
+    b = [byte[0],byte[1] + 1] # anda uma casa para a direita
 
-    tictac, vali = caminho(n, tictac+1, mapa, byte, saida, vali, visitado)
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        mapa[byte[0]][byte[1]] = guarda_posicao
-    for i in mapa:
-        print(i)
-    print()
-    byte[0] -= 1
+    if (b[0] < n and b[1] < n and b[0] >= 0 and b[1] >= 0) and (mapa[b[0]][b[1]] != 'A') : # esta dentro do mapa e nao esta encima de uma abobora
+#?        guarda_posicao = mapa[b[0]][b[1]]
+#?        mapa[b[0]][b[1]] = 'B'
+#?        for i in mapa:
+#?            print(i)
+#?        print()
 
-    
+        t, vali = caminho(n, tictac+1, mapa, b, saida, vali, visitado.copy(), t)
 
-    byte[1] += 1 # direita
-
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        guarda_posicao = mapa[byte[0]][byte[1]]
-        mapa[byte[0]][byte[1]] = 'B'
-        for i in mapa:
-            print(i)
-        print()
-
-    tictac, vali = caminho(n, tictac+1, mapa, byte, saida, vali, visitado)
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        mapa[byte[0]][byte[1]] = guarda_posicao
-    for i in mapa:
-        print(i)
-    print()
-    byte[1] -= 1
+#?        mapa[b[0]][b[1]] = guarda_posicao
+#?        for i in mapa:
+#?            print(i)
+#?        print()
 
 
 
-    byte[0] -= 1 # cima
+    b = [byte[0] - 1,byte[1]] # anda uma casa para cima
 
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        guarda_posicao = mapa[byte[0]][byte[1]]
-        mapa[byte[0]][byte[1]] = 'B'
-        for i in mapa:
-            print(i)
-        print()
+    if (b[0] < n and b[1] < n and b[0] >= 0 and b[1] >= 0) and (mapa[b[0]][b[1]] != 'A') : # esta dentro do mapa e nao esta encima de uma abobora
+#?        guarda_posicao = mapa[b[0]][b[1]]
+#?        mapa[b[0]][b[1]] = 'B'
+#?        for i in mapa:
+#?            print(i)
+#?        print()
 
-    tictac, vali = caminho(n, tictac+1, mapa, byte, saida, vali, visitado)
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        mapa[byte[0]][byte[1]] = guarda_posicao
-    for i in mapa:
-        print(i)
-        print()
-    byte[0] += 1
+        t, vali = caminho(n, tictac+1, mapa, b, saida, vali, visitado.copy(), t)
 
+#?        mapa[b[0]][b[1]] = guarda_posicao
+#?        for i in mapa:
+#?            print(i)
+#?        print()
 
 
-    byte[1] -= 1 # esquerda
 
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        guarda_posicao = mapa[byte[0]][byte[1]]
-        mapa[byte[0]][byte[1]] = 'B'
-        for i in mapa:
-            print(i)
-        print()
+    b = [byte[0],byte[1] - 1] # anda uma casa para esquerda
 
-    tictac, vali = caminho(n, tictac+1, mapa, byte, saida, vali, visitado)
-    if byte[0] < n and byte[1] < n and byte[0] >= 0 and byte[1] >= 0:
-        mapa[byte[0]][byte[1]] = guarda_posicao
-    for i in mapa:
-        print(i)
-    print()
+    if (b[0] < n and b[1] < n and b[0] >= 0 and b[1] >= 0) and (mapa[b[0]][b[1]] != 'A') : # esta dentro do mapa e nao esta encima de uma abobora
+#?        guarda_posicao = mapa[b[0]][b[1]]
+#?        mapa[b[0]][b[1]] = 'B'
+#?        for i in mapa:
+#?            print(i)
+#?        print()
 
+        t, vali = caminho(n, tictac+1, mapa, b, saida, vali, visitado.copy(), t)
 
-    return tictac, vali
+#?        mapa[b[0]][b[1]] = guarda_posicao
+#?        for i in mapa:
+#?            print(i)
+#?        print()
+# ---------------------
 
-# ----------------------
+    return t, vali
+
+# fim da funcao ----------------------
+# main -------------------------------
+
 byte = []
 saida = []
 mapa = []
@@ -118,15 +123,16 @@ for i in range(n):
         elif l == 'B':
             byte = [i , mapa[i].index(l)]
 
-tic, vali = caminho(n, tictac, mapa, byte, saida, False, [])
+tic, vali = caminho(n, tictac, mapa, byte, saida, False, [], 0)
 
 
 if vali:
     precid = tic-tictac
+    folga = 60-tic
     print(f'CONSEGUIMOS!! Byte precisou de {precid} minuto(s) para conseguir escapar!')
 
-    if precid>10:
-        print(f'Abóboras CInistras que nada! Byte mostrou quem é que manda e conseguiu sair faltando {60-tic} minutos para elas acordarem')
+    if folga>10:
+        print(f'Abóboras CInistras que nada! Byte mostrou quem é que manda e conseguiu sair faltando {folga} minutos para elas acordarem')
     else:
         print('Ufa! Essa foi por pouco! Mas com ajuda dos alunos de IP essas abóboras nem pareciam tão sinistras assim.')
 else:
