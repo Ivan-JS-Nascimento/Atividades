@@ -1,14 +1,13 @@
 
-
 exigencias = {}
 op = True
 
+# fase 1
 while op:
-    # entrada crua
+
     auxi = input()
 
     if auxi != 'MIMOS RECEBIDOS':
-        # fase 1
 
         # auxi = [ 0 - categoria , 1 - item , 2 - quantidade ]
         auxi = auxi.split(': ')
@@ -16,12 +15,16 @@ while op:
         # se for uma bebida lattet tem que adicionas +1 na quantidade
         if auxi[0] == 'Bebidas' and auxi[1] == "latte":
             auxi[2] = int(auxi[2]) + 1
+            
+        else:
+            auxi[2] = int(auxi[2])
         
         # exigencias = { chave = categoria : valor = tupla( item , quantidade , quant_chegaram) }
         exigencias[auxi[0]] = (auxi[1], auxi[2], 0)
 
     else:
         op = False
+
 
 # fase 2
 op = True
@@ -30,7 +33,7 @@ while op:
     categoria = ''
     item = ''
 
-    # entrada crua. ex:. Chegaram {quantidade} itens da categoria {categoria} (Item: {item_principal})
+    # entrada ex:. Chegaram {quantidade} itens da categoria {categoria} (Item: {item_principal})
     chegaram = input()
 
     if chegaram != "ACABOU, a Glinda está pronta!":
@@ -53,6 +56,7 @@ while op:
         op = False
 
 
+#------------- relatorio -------------
 print('Relatório de Balanço Final:')
 quant_catego_negativas = 0
 for key in exigencias:
@@ -62,9 +66,11 @@ for key in exigencias:
         quant_catego_negativas += 1
 
 
-    print(f'Chegaram {exigencias[key][2]} itens da categoria {key} (Item: {exigencias[key][0]})')
+    print(f'Categoria: {key} Item: {exigencias[key][0]} Status: {frase}')
 print()
 
+
+# ------------- Checagens específicas -------------
 make = exigencias.get('Maquiagem','ne') 
 if make != 'ne' and make[0] == 'Gloss':
     if make[1]<=0:
@@ -79,6 +85,9 @@ if bebida != 'ne' and bebida[0] == 'latte':
     else:
         print('Cadeia neles! Faltou o Mimo Sagrado. Essa equipe tá perdida!')
 
+
+
+# ------------- Veredito da Diva -------------
 print()
 print('Veredito Final')
 
