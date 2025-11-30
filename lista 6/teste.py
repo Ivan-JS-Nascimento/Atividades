@@ -1,36 +1,29 @@
+def ogr_raking(competidoras):
+    raking = {}
 
-exigencias = {}
-op = True
+    i = 0
+    for chave in competidoras:
+        raking[i] = chave
+        i += 1
 
-while op:
-    auxi = input()
+    n = len(raking)
 
-    if auxi != 'MIMOS RECEBIDOS':
-        # fase 1
-        auxi = auxi.split(': ')
-        if auxi[0] == 'Bebidas' and auxi[1] == "latte":
-            auxi2 = int(auxi[2]) +1
-            auxi[2] = auxi2
+    for i in range(n-1):
+        for j in range(n-i-1):
+            if competidoras[raking[j]][4] < competidoras[raking[j+1]][4]:
+                raking[j], raking[j+1] = raking[j+1], raking[j]
 
-        exigencias[auxi[0]] = (auxi[1], auxi[2])
+    return raking
 
-    else:
-        op = False
 
-# fase 2
-op = True
-while op:
-    quantidade = 0
-    categoria = ''
-    item = ''
+competidoras = {
+    'Ivete Sangalo'  : ('Brasil' , 3 , 89 , 200, 54),
+    'Azealia Banks' : ('EUA' , 0 , 40 , 1, 12),
+    'Anitta' : ('Brasil' , 0 , 88 , 100, 32),
+    'Taylor Swift' : ('EUA' , 14 , 98 , 2, 6),
+    'Luisa Sonza' : ('Brasil' , 1 , 84 , 148, 10)
+}
 
-    chegaram = input()
+raking = ogr_raking(competidoras)
 
-    if chegaram != "ACABOU, a Glinda está pronta!":
-        chegaram = chegaram.split()
-        quantidade = int(chegaram[1])
-        categoria = chegaram[5]
-        item = chegaram[7][:-1]
-        
-    else:
-        ...
+print(raking)
