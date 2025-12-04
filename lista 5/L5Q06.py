@@ -1,240 +1,293 @@
-# funcoes ----
 
-def custo_acao(acao):
-    custo = 1 # gasto base por hora
-    if acao[0] == 's': custo += 7
-    if acao[1] == 's': custo += 7
-    if acao[2] == 's': custo += 5
-    if acao[3] == 's': custo += 9
-    #print()
-    #print('>calculando acao')
-    #print(f' custo { custo }')
-    #print()
-    return custo
+dic = {
+# ============ Dua Lipa =================
+    'Future_Nostalgia' : (
+        'Future Nostalgia',
+        "Don't Start Now",
+        'Cool',
+        'Physical',
+        'Levitating',
+        'Pretty Please',
+        'Hallucinate',
+        'Love Again',
+        'Break My Heart',
+        'Good in Bed',
+        'Boys Will Be Boys',
+        'Fever'),
 
-def custo_fruatrado(e, nome, ataques, tronic, taxa):
-    ix = tronic.index(nome)
-    #print()
-    #print('>calculando custo:')
-    #print(f' e {e}')
-    #print(f' ataques[ix] { ataques[ix] }')
-    #print(f' taxa { taxa }')
-    #print(e + ( ataques[ix] * taxa ))
-    #print()
-    return e + ( ataques[ix] * taxa )
+    'Radical_Optimism' : (
+        'End of an Era',
+        'Houdini',
+        'Training Season',
+        'These Walls',
+        'Whatcha Doing',
+        'French Exit',
+        'Illusion',
+        'Falling Forever',
+        'Anything for Love',
+        'Maria',
+        'Happy for You'),
+    # ==============================
+    # ========== Olivia Rodrigo ==========
+    'SOUR' : (
+        'Brutal',
+        'Traitor',
+        'Drivers License',
+        '1 Step Forward, 3 Steps Back',
+        'Deja Vu',
+        'Good 4 U',
+        'Enough For You',
+        'Happier',
+        'Jealousy, Jealousy',
+        'Favorite Crime',
+        'Hope Ur Ok'),
 
-def escolha(energia, ataques, tronic, acao, acao_custo_min, custo):
-    #print()
-    #print(' ESCOLHA ---')
-    #print()
-    #print(f' energia {energia}')
-    #print(f' ataques {ataques}')
-    #print(f' tronic  {tronic}')
-    #print(f' acao    {acao}')
-    #print(f' acao_custo_min {acao_custo_min}')
-    #print(f' custo   {custo}')
-    #print()
-    # acao [ pe, pd, lz, cam ]
+    'GUTS' : (
+        'All-American Bitch',
+        'Bad Idea Right?', 
+        'Vampire', 
+        'Lacy', 
+        'Ballad Of A Homeschooled Girl',
+        'Making The Bed', 
+        'Logical', 
+        'Get Him Back!', 
+        'Love Is Embarrassing', 
+        'The Grudge', 
+        "Pretty Isn't Pretty", 
+        'Teenage Dream'),
+    # ==================================
+    # =========== Katy Perry =============
+    'Teenage_Dream' : (
+        'Teenage Dream', 
+        'Last Friday Night (T.G.I.F.)', 
+        'California Gurls', 
+        'Firework', 
+        'Peacock', 
+        'Circle the Drain', 
+        'The One That Got Away', 
+        'E.T.', 
+        'Who Am I Living For?', 
+        'Pearl', 
+        'Hummingbird Heartbeat', 
+        'Not Like the Movies'),
 
-    if acao!=[]:
-        c = 0
-        if 'bo' in tronic:
-            if acao[0]=='s' or (acao[2]=='s' and acao[3]=='n'):
-                c += custo_fruatrado(3,'bo',ataques,tronic,0.25)
-            else:
-                return acao_custo_min, custo
-        
-        if 'ch' in tronic:
-            if acao[1]=='s' or acao[3]=='s':
-                c += custo_fruatrado(2,'ch',ataques,tronic,0.35)
-            else:
-                return acao_custo_min, custo
-        
-        if 'fo' in tronic:
-            if acao[0]=='s':
-                c += custo_fruatrado(5,'fo',ataques,tronic,0.15)
-            else:
-                return acao_custo_min, custo
-        
-        if 'fr' in tronic:
-            if acao[3]=='s' or (acao[0]=='s' and acao[1]=='s'):
-                c += custo_fruatrado(3,'fr',ataques,tronic,0.35)
-            else:
-                return acao_custo_min, custo
-        
-        if 'gf' in tronic:
-            if acao[3]=='s':
-                c += custo_fruatrado(10,'gf',ataques,tronic,1.95)
-            else:
-                return acao_custo_min, custo
+    'Prism' : (
+        'Roar', 
+        'Legendary Lovers', 
+        'Birthday', 
+        'Walking on Air', 
+        'Unconditionally', 
+        'Dark Horse', 
+        'This Is How We Do', 
+        'International Smile', 
+        'Ghost', 
+        'Love Me', 
+        'This Moment', 
+        'Double Rainbow', 
+        'By theGrace of God')
+# ==============================
+}
 
-        # calculos
-        
-        c += custo_acao(acao)
+diva_era = {
+    'Dua Lipa'       : ('Future_Nostalgia','Radical_Optimism'),
+    'Olivia Rodrigo' : ('SOUR','GUTS'),
+    'Katy Perry'     : ('Teenage_Dream','Prism')
+}
 
-        if energia-c > 0:
-            if custo != 0:
-                if custo > c:
-                    acao_custo_min = acao.copy()
-                    custo = c
-                    return acao_custo_min, custo
-                else: 
-                    return acao_custo_min, custo
-            else:
-                acao_custo_min = acao.copy()
-                custo = c
-                return acao_custo_min, custo
-        else:
-            return acao_custo_min, custo
-        
+spotify = {
+    #                 musica : (era, stream)
+    'Dua Lipa'       : {},
+    'Olivia Rodrigo' : {},
+    'Katy Perry'     : {}
+}
 
-    
-    for pe in ['s','n']:
-        for pd in ['s','n']:
-            for lz in ['s','n']:
-                for cam in ['s','n']:
-                    acao = [pe, pd, lz, cam]
-                    acao_custo_min, custo = escolha(energia, ataques, tronic, acao, acao_custo_min, custo)
+podio = {
+    1 : '',
+    2 : '',
+    3 : ''
+}
 
-    return acao_custo_min, custo
+entradas_fase2 = {}
 
+quant_mus_era ={
+    'Future_Nostalgia': 0,
+    'Radical_Optimism' : 0,
+    'SOUR' : 0,
+    'GUTS' : 0,
+    'Teenage_Dream' : 0,
+    'Prism' : 0
+}
 
-def jogar(vida, energia, hora, d_bo, d_ch, d_fo, d_fr, d_gf, escolhas):
-    #print()
-    #print(' ------------ JOGAR --------------')
-    #print()
-    ataques = []
-    tronic  = []
+musicas_raking = []
 
-    # verificar hora
-    if hora == 6:
-        return escolhas, energia
-    # verificar vida
-    if not vida:
-        return
-    # verifucar energia
-    if energia<=0:
-        return
-    # ataques
-    # > Bonnir
-    if d_bo>0 and (hora==0 or hora==3):
-        ataques.append(d_bo)
-        tronic.append('bo')
-    # > Chica
-    if d_ch>0 and (hora==1 or hora==4):
-        ataques.append(d_ch)
-        tronic.append('ch')
-    # > Foxy
-    if d_fo>0 and hora==4 and energia>50:
-        ataques.append(d_fo)
-        tronic.append('fo')
-    # > Freddy
-    if d_fr>0 and hora==5:
-        ataques.append(d_fr)
-        tronic.append('fr')
-    # > Golden Freddy
-    if d_gf>0 and hora==5:
-        ataques.append(d_gf)
-        tronic.append('gf')
+votacao = {
+    'Dua Lipa'       : 0,
+    'Olivia Rodrigo' : 0,
+    'Katy Perry'     : 0
+}
 
-    # escolha
-    acao, custo = escolha(energia, ataques, tronic, [] , [], 0)
-    #print()
-    #print(f'acao {acao}')
-    #print(f'custo {custo}')
-    if acao!=[]:
-        escolhas.append(acao)
-        energia -= custo
-        escolhas, energia = jogar(vida, energia, hora+1, d_bo, d_ch, d_fo, d_fr, d_gf, escolhas)
-    else: # ele morreu, nao tinha possibilidades
-        return escolhas, energia
+fas = {}
 
-    return escolhas, energia
-
-
-def anagrama(num):
-    special = False
-    anag = False
-
-    auxi1 = []
-    for i in num:
-        auxi1.append(str(i))
-    auxi1 = ''.join(auxi1)
-    auxi1 = list(auxi1)
-    auxi2 = auxi1.copy()
-    for a in auxi2:
-        if a == '0':
-            auxi1.remove(a)
-            special = True
-
-
-    if len(auxi1) == 4 and special:
-        anag = ''.join(sorted(auxi1)) == ''.join(sorted('1987'))
-    else:
-        anag = sorted(num) == sorted([1,9,8,7])
-
-    return anag, special
-
-# main--------
-
-energia  = 100
-escolhas = []
-
-d_bo = 0
-d_ch = 0
-d_fr = 0
-d_fo = 0
-d_gf = 0
-
-# > recebe as dificuldades e converte para int
-niveis_dificuldade = input().split(' ')
-
-aux = []
 op = True
-for nd in niveis_dificuldade:
-    aux.append(int(nd))
-for a in aux:
-    if a < 0 or a > 20:
-        op = False
+quant_m_dua    = 23
+quant_m_olivia = 23
+quant_m_katy   = 25
+parte1 = True
+parte2 = False
+parte3 = False
 
-niveis_dificuldade = aux
+# -------------------------------FUNÇÔES-----------------------------------
 
-# > entrada valida
-if len(niveis_dificuldade) == 4 and op:
-    d_bo = niveis_dificuldade[0]
-    d_ch = niveis_dificuldade[1]
-    d_fr = niveis_dificuldade[2]
-    d_fo = niveis_dificuldade[3]
-    
+def organizar_podio(podio, spotify):
 
-    if d_bo == 0 and d_ch == 0 and d_fr == 0 and d_fo == 0:
-        print('"Uh, olá? Olá? Phone Guy falando. Não tem ninguém aqui..."')
-        
-    else:
-        op = True
-        anag, special = anagrama([d_bo,d_ch,d_fr,d_fo])
-        
-        if anag and not special:
-            d_gf = d_fr
-            escolhas, energia = jogar(True, energia, 0, d_bo, d_ch, d_fo, d_fr, d_gf, [])
-            
-        elif anag and special:
-            print(""" "IT'S ME" """)
-            op = False
-        else:
-            escolhas, energia = jogar(True, energia, 0, d_bo, d_ch, d_fo, d_fr, d_gf, [])
-            
+    media_stream = 0
+    somatorio_streams_diva = 0
+    total_musicas_diva = 0
+    list_divas = []
+    list_d_ordenada = []
 
-        if op:
-            if len(escolhas) < 6: # nao sobrevivel
-                print('"Uh, Phone Guy falando. Uh, não tem mais ninguém do outro lado, não é?"')
+    for diva in spotify:
+        for music in spotify[era]:
+
+            total_musicas_diva += 1
+            somatorio_streams_diva += spotify[era][music][1]
+
+            media_stream = somatorio_streams_diva/total_musicas_diva
+
+        list_divas.append({
+            'nome_diva' : diva,
+            'num_music' : total_musicas_diva,
+            'media_str' : media_stream
+        })
+
+    list_d_ordenada = sorted(list_divas, key=lambda x : (-x['media_str'], -x['num_music'], x['nome_diva']))
+
+    podio[1] = list_d_ordenada[0]['nome_diva']
+    podio[2] = list_d_ordenada[1]['nome_diva']
+    podio[3] = list_d_ordenada[2]['nome_diva']
+
+    return
+
+def descripto(mensagem, chave):
+    indice_letra = {
+        0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', 6: 'g', 7: 'h', 8: 'i', 9: 'j', 10: 'k', 11: 'l', 12: 'm', 13: 'n', 14: 'o', 15: 'p', 16: 'q', 17: 'r',
+        18: 's', 19: 't', 20: 'u', 21: 'v', 22: 'w', 23: 'x', 24: 'y', 25: 'z'
+    }
+    letra_indice = {
+        'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9, 'k': 10, 'l': 11, 'm': 12, 'n': 13, 'o': 14, 'p': 15, 'q': 16, 'r': 17,
+        's': 18, 't': 19, 'u': 20, 'v': 21, 'w': 22, 'x': 23, 'y': 24, 'z': 25
+    }
+
+    mens_descripto = ''
+
+    for caracter in mensagem:
+        if caracter.isalpha():
+            indice = letra_indice[caracter.lower()]
+
+            novo_ix = (indice-chave)
+            if novo_ix < 0:
+                novo_ix = 26 - novo_ix
+
+            if caracter.isupper():
+                mens_descripto += indice_letra[novo_ix].upper()
             else:
-                print(f'"Uh, olá? Ei, wow, dia sete, parabéns. E ainda com {energia:.2f}% de energia. Eu sabia que você conseguiria."')
-                for i in range(6):
-                    print(f"0{i}:00 AM -> PE: {'SIM' if (escolhas[i][0] == 's')else 'NÃO'} | PD: {'SIM' if(escolhas[i][1] == 's')else 'NÃO'} | LZ: {'SIM' if(escolhas[i][2] == 's')else 'NÃO'} | CAM: {'SIM' if(escolhas[i][3] == 's')else 'NÃO'}")
+                mens_descripto += indice_letra[novo_ix]
+        else:
+            mens_descripto += caracter
 
+    return mens_descripto
 
-# entrada invalida
-else:
-    print('"Uh, Phone Guy aqui. Os animatronics estão um pouco "sapecas" esta noite."')
+#  --------------------------------MAIN------------------------------------
 
+while op:
+
+    entrada = input()
+
+    if parte1: # -----------------------------------------------------
+        if entrada != 'FIM':
+
+            # musica(str) - diva(str) - Era(str) - stream(int)
+            entrada = entrada.split(' - ')
+
+            musica = entrada[0]
+            diva   = entrada[1]
+            era    = entrada[2]
+            stream = int(entrada[3])
+
+            if (era in dic) and (musica in dic[era]) and (era in diva_era[diva]):
+                
+                if musica not in spotify[diva] and quant_mus_era[era] < 3:
+                    quant_mus_era[era] += 1
+                    spotify[diva][musica] = (era, stream)
+
+                else:
+                    ...
+            else:
+                ...
+
+        else:
+            parte1 = False
+            if spotify.items() == {}:
+                op = False
+                parte2 = False
+            else:
+                organizar_podio(podio, spotify)
+                parte2 = True
+
+    elif parte2: # -----------------------------------------------------
+        if entrada != 'FIM':
+            #
+            entrada = entrada.split(' - ')
+
+            musica = entrada[0]
+            diva   = entrada[1]
+
+            if musica in spotify[diva]:
+                if musica in entradas_fase2:
+                    n = entradas_fase2[musica][0]
+                    entradas_fase2[musica] = (n+1, spotify[diva][musica][1])
+                else:
+                    entradas_fase2[musica] = (1, spotify[diva][musica][1])
+            
+        else:
+            parte2 = False
+            if entradas_fase2 != {}:
+
+                for mus in entradas_fase2:
+                    musicas_raking.append({
+                        'musica'    : mus,
+                        'quant_mus' : entradas_fase2[mus][0],
+                        'stream'    : entradas_fase2[mus][1]
+                    })
+                    
+                musicas_raking = sorted(musicas_raking, key=lambda x : (-x['quant_mus'],-x['stream'],x['musica']))
+
+                if musicas_raking[0]['musica'] in spotify[podio[1]]:
+                    ...
+                else:
+                    parte3 = True
+
+    elif parte3: # -----------------------------------------------------
+        # Fa_criptografado(str) - chave_de_criptografia_fa(int) - diva_criptografada(str) - chave_de_criptografia_diva(int)
+        entrada = entrada.split(' - ')
+
+        fa_crip = entrada[0]
+        chave_fa = entrada[1]
+        diva_crip = entrada[2]
+        chave_di = entrada[3]
+
+        fa = descripto(fa_crip, chave_fa)
+        diva = descripto(diva_crip, chave_di)
+
+        if fa.lower() != 'fim' and diva.lower() != 'fim':
+
+            if diva in spotify:
+                votacao[diva] += 1
+                if fa in fas:
+                    n = fas[fa]
+                    fas[fa] = n + 1
+                else:
+                    fas[fa] = 1
+
+        else:
+            ...
