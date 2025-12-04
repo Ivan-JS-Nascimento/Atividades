@@ -1,49 +1,42 @@
-def teste(n, ocupado, linha = 0, tabuleiro=[]):
-    print(f' n: {n} , linha: {linha}')
-    print(f' tabuleiro ')
+dic_divas = {
+    1:{'nome_diva': 'Diva B', 'num_music': 15, 'media_str': 1},
+    2:{'nome_diva': 'Diva A', 'num_music': 10, 'media_str': 1}, # P1: A
+    3:{'nome_diva': 'Diva C', 'num_music': 20, 'media_str': 2}, # P1: C
+    4:{'nome_diva': 'Diva Z', 'num_music': 5,  'media_str': 25}, # P1: B
+    5:{'nome_diva': 'Diva X', 'num_music': 10, 'media_str': 2}, # P1: A (Empate com Diva A)
+    6:{'nome_diva': 'Diva Y', 'num_music': 20, 'media_str': 7}, # P1: C (Empate com Diva C)
+    7:{'nome_diva': 'Diva W', 'num_music': 18, 'media_str': 14}  # P1: C
+}
 
-    if tabuleiro == []:
-        tabuleiro = [[80] * n for _ in range(n)]
-        tabuleiro[ocupado[0]][ocupado[1]] = 77
-       
-    for i in range(n):
-        print(tabuleiro[i])
 
-    if linha == n:
-        return 1
-    
-    num  = 0
 
-    for coluna in range(n):
-        print('---------------')
-        print(f'coluna: {coluna}')
-        if tabuleiro[linha][coluna] == 80:
-            valido = True
 
-            for i in range(1, linha+ 1):
-                print(f' for interno i: {i}')
-                if tabuleiro[linha - i][coluna] == 11:
-                    print('case 1')
-                    valido = False
-                    break
+def organizar(dic_divas):
+    n = len(dic_divas)
 
-                if coluna - i >= 0 and tabuleiro[linha - i][coluna - i] == 11:
-                    print('caso 2')
-                    valido = False
-                    break
+    for i in range(1,n):
+        for j in range(1,n-i+1):
+            antes = dic_divas[j]
+            depois= dic_divas[j+1]
+            
 
-                if coluna + i < n and tabuleiro[linha - i][coluna + i] == 11:
-                    print('caso 3')
-                    valido = False
-                    break
 
-            if valido:
-                tabuleiro[linha][coluna] = 11
-                num += teste(n, ocupado, linha+1, tabuleiro)
-                tabuleiro[linha][coluna] = 80
+            if antes['media_str'] < depois['media_str']:
+                dic_divas[j], dic_divas[j+1] =  dic_divas[j+1],  dic_divas[j]
 
-    return num
+            elif antes['media_str'] == depois['media_str']:
 
-n = 5
-ocupado = [2, 1]
-print(teste(n, ocupado))
+                if antes['num_music'] < depois['num_music']:
+                    dic_divas[j], dic_divas[j+1] =  dic_divas[j+1],  dic_divas[j]
+
+                elif antes['num_music'] == depois['num_music']:
+
+                    if antes['nome_diva'] > depois['nome_diva']:
+                        dic_divas[j], dic_divas[j+1] =  dic_divas[j+1],  dic_divas[j]
+
+    return
+ 
+organizar(dic_divas)
+
+for num in dic_divas:
+    print(dic_divas[num])
