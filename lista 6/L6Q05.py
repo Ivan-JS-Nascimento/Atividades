@@ -12,6 +12,9 @@ def conta_caracteres(palavra):
 
 def permutacao(palavra1, palavra2)->bool:
     # Se os tamanhos forem diferentes, já não são permutação
+    palavra1 = palavra1.lower().replace(" ","")
+    palavra2 = palavra2.lower().replace(" ","")
+
     if len(palavra1) != len(palavra2):
         return False
     return conta_caracteres(palavra1) == conta_caracteres(palavra2)
@@ -181,7 +184,7 @@ while op:
                     print(f'Por excesso de "estrelas e listras", {nome_candidata} recebe uma penalidade de 50 pontos.')
 
         else:
-            print(f'Eita, climão! Parece que o histórico de polêmicas de {nome_candidata} falou mais alto. A produção barrou a entrada e aqui no Brasil ela não canta!')
+            print(f'Eita, climão! Parece que o histórico de polêmicas de Azealia Banks falou mais alto. A produção barrou a entrada e aqui no Brasil ela não canta!')
 
     else:
         op = False
@@ -195,70 +198,79 @@ if len(raking) > 1:
     print()
 
 # fase 2
-vali = False
-for i in raking:
-    competidor1 = raking[i]
-    if competidor1 in conflitos:
-        if type(conflitos[competidor1]) == str:
-            competidor2 = conflitos[competidor1]
-            if competidor2 in competidoras:
-                vali = True
-        else:
-            for i in conflitos[competidor1]:
-                if i in competidoras:
+if len(raking) > 1:
+    vali = False
+    for i in raking:
+        competidor1 = raking[i]
+        if competidor1 in conflitos:
+            if type(conflitos[competidor1]) == str:
+                competidor2 = conflitos[competidor1]
+                if competidor2 in competidoras:
                     vali = True
+            else:
+                for i in conflitos[competidor1]:
+                    if i in competidoras:
+                        vali = True
 
-if vali:
-    print('SALTO ALTO NO TABLADO! HORA DO DUELO!')
-else:
-    print('O palco estava montado. Os holofotes, ligados. Mas o conflito não apareceu. Fase 2 cancelada: as divas escolheram reinar em paz.')
+    if vali:
+        print('SALTO ALTO NO TABLADO! HORA DO DUELO!')
+    else:
+        print('O palco estava montado. Os holofotes, ligados. Mas o conflito não apareceu. Fase 2 cancelada: as divas escolheram reinar em paz.')
 
 
-for i in raking:
-    competidor1 = raking[i]
+    for i in raking:
+        competidor1 = raking[i]
 
-    if competidor1 in conflitos and competidor1 in competidoras:
+        if competidor1 in conflitos and competidor1 in competidoras:
 
-        if type(conflitos[competidor1]) == str:
-            competidor2 = conflitos[competidor1]
-            if competidor2 in competidoras:
-                combate(competidor1,competidor2, competidoras)
+            if type(conflitos[competidor1]) == str:
+                competidor2 = conflitos[competidor1]
+                if competidor2 in competidoras:
+                    combate(competidor1,competidor2, competidoras)
 
-        else:
-            for competidor2 in conflitos.get(competidor1, []):
-                if competidor2 != [] and competidor1 in competidoras:
-                    if competidor2 in competidoras:
-                        combate(competidor1,competidor2, competidoras)
-print()
-
-raking = ogr_raking(competidoras)
-
-if len(raking) > 1 and vali:
-    placar(2, raking, competidoras)
+            else:
+                for competidor2 in conflitos.get(competidor1, []):
+                    if competidor2 != [] and competidor1 in competidoras:
+                        if competidor2 in competidoras:
+                            combate(competidor1,competidor2, competidoras)
     print()
+
+    raking = ogr_raking(competidoras)
+
+    if len(raking) != 0 and vali:
+        
+        placar(2, raking, competidoras)
+        print()
 
 # fase 3
 vali = False
 if 'Lady Gaga' in competidoras:
     if len(raking) > 3 and raking[0] != 'Lady Gaga' and raking[1] != 'Lady Gaga' and raking[2] != 'Lady Gaga':
 
-        popularidade_oponete = competidoras[raking[2]][2]
+        ix_oponente = -1
+        n = len(raking)
+        for i in range(n-1, -1, -1):
+            if raking[i] != 'Lady Gaga' and ix_oponente == -1:
+                ix_oponente = i
+
+        popularidade_oponete = competidoras[raking[ix_oponente]][2]
         popularidade_lady = competidoras['Lady Gaga'][2]
 
         porcentagem = popularidade_oponete * 100 / popularidade_lady
 
+        if not vali:
+            print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
+            vali = True
         #Sucesso:
         if porcentagem <= 125:
-            if not vali:
-                print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
-            vali = True
-            print(f'ARRASOU! O blefe de Lady Gaga funcionou! Ela enganou os jurados com seu "Poker Face" e roubou a cena de {raking[2]}!')
+            
+            print(f'ARRASOU! O blefe de Lady Gaga funcionou! Ela enganou os jurados com seu "Poker Face" e roubou a cena de {raking[ix_oponente]}!')
 
-            x = competidoras[raking[2]][4]
+            x = competidoras[raking[ix_oponente]][4]
             y = competidoras['Lady Gaga'][4]
 
             competidoras['Lady Gaga'] = (competidoras['Lady Gaga'][0], competidoras['Lady Gaga'][1], competidoras['Lady Gaga'][2], competidoras['Lady Gaga'][3], x+y)
-            del competidoras[raking[2]]
+            del competidoras[raking[ix_oponente]]
             
         #Falha:
         else:
@@ -268,33 +280,34 @@ if 'Lady Gaga' in competidoras:
     raking = ogr_raking(competidoras)
 
 
-if 'Beyonce' in competidoras:
+if 'Beyoncé' in competidoras:
     l = len(raking)
     if l > 2:
         # somar pontuação das duas competidoras mais fracas
         pessoa1 = {}
         pessoa2 = {}
-        ponto_beyonce = competidoras['Beyonce'][4]
+        ponto_beyonce = competidoras['Beyoncé'][4]
         op1 = True
         op2 = True
 
         # pegando as duas pessoas (que não seja beyonce) com menor pontuação
         for i in range(l-1, -1, -1):
 
-            if raking[i] != 'Beyonce' and op1:
+            if raking[i] != 'Beyoncé' and op1:
                 op1 = False
                 pessoa1[1] = (raking[i], competidoras[raking[i]][4])
 
-            elif raking[i] != 'Beyonce' and op2:
+            elif raking[i] != 'Beyoncé' and op2:
                 op2 = False
                 pessoa2[1] = (raking[i], competidoras[raking[i]][4])
 
         if pessoa2 != {} and pessoa1 != {}:
-            #Sucesso:
-            if ( pessoa1[1][1] + pessoa2[1][1]) <= ponto_beyonce:
-                if not vali:
-                    print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
+            if not vali:
+                print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
                 vali = True
+            #Sucesso:
+            if ( pessoa1[1][1] + pessoa2[1][1] ) <= ponto_beyonce:
+            
                 print('PAREM TUDO! Queen Bey ativou a "Formation"! Ela reorganizou o jogo, elevou as novatas e saiu ainda mais forte!')
                 acrecimo1 = pessoa1[1][1] * 10 / 100
                 acrecimo2 = pessoa2[1][1] * 10 / 100
@@ -302,12 +315,12 @@ if 'Beyonce' in competidoras:
                 competidoras[pessoa1[1][0]] = (competidoras[pessoa1[1][0]][0], competidoras[pessoa1[1][0]][1], competidoras[pessoa1[1][0]][2], competidoras[pessoa1[1][0]][3], competidoras[pessoa1[1][0]][4]+acrecimo1)
                 competidoras[pessoa2[1][0]] = (competidoras[pessoa2[1][0]][0], competidoras[pessoa2[1][0]][1], competidoras[pessoa2[1][0]][2], competidoras[pessoa2[1][0]][3], competidoras[pessoa2[1][0]][4]+acrecimo2)
 
-                competidoras['Beyonce'] = (competidoras['Beyonce'][0], competidoras['Beyonce'][1], competidoras['Beyonce'][2], competidoras['Beyonce'][3], competidoras['Beyonce'][4]+acrecimo1+acrecimo2 )
+                competidoras['Beyoncé'] = (competidoras['Beyoncé'][0], competidoras['Beyoncé'][1], competidoras['Beyoncé'][2], competidoras['Beyoncé'][3], competidoras['Beyoncé'][4]+acrecimo1+acrecimo2 )
 
             #Falha:
             else:
                 print('CHOQUE! A estratégia de Beyoncé foi ousada demais! A "Formation" não convenceu e ela foi desclassificada por manipulação!')
-                del competidoras['Beyonce']
+                del competidoras['Beyoncé']
 
     raking = ogr_raking(competidoras)
 
@@ -317,11 +330,12 @@ if 'Anitta' in competidoras:
         popularidade_rank1 = competidoras[raking[0]][2]
         popularidade_anita = competidoras['Anitta'][2]
 
+        if not vali:
+            print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
+            vali = True
         #Sucesso:
         if popularidade_anita >= (popularidade_rank1 * 90 / 100):
-            if not vali:
-                print('O PALCO VAI TREMER! HORA DAS JOGADAS ESPECIAIS!')
-            vali = True
+            
             print(f'A PATROA TÁ ON! Anitta usou "Envolver" e fez {raking[0]} dançar conforme sua música, virando o placar a seu favor!')
             # roubando 25% dos pontos da lider
             p_roubados = (competidoras[raking[0]][4]-competidoras['Anitta'][4]) * 25 / 100
